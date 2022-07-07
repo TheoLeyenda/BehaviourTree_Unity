@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 29
+  controlID: 18
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -68,8 +68,8 @@ MonoBehaviour:
     y: 0
     width: 546.4
     height: 730.8
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -460,22 +460,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/AI/BehaviourTree
+    - Assets/Scripts/AI/BehaviourTree/BT
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scripts/AI/BehaviourTree
+  - Assets/Scripts/AI/BehaviourTree/BT
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\theof\Desktop\BehaviorThree_Unity\BehaviourTree
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 985a0000
-    m_LastClickedID: 23192
-    m_ExpandedIDs: 00000000545a0000565a0000585a00007c5a00009a5a000000ca9a3bffffff7f
+    m_SelectedIDs: ec5a0000
+    m_LastClickedID: 23276
+    m_ExpandedIDs: 00000000545a0000565a0000585a0000805a00009c5a00009e5a000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -933,7 +933,7 @@ MonoBehaviour:
   m_Rotation:
     m_Target: {x: 0.04756966, y: -0.9512554, z: 0.23855191, w: 0.18966772}
     speed: 2
-    m_Value: {x: -0.047568932, y: 0.95124084, z: -0.23854828, w: -0.18966483}
+    m_Value: {x: 0.047568932, y: -0.95124084, z: 0.23854828, w: 0.18966483}
   m_Size:
     m_Target: 40.163868
     speed: 2
