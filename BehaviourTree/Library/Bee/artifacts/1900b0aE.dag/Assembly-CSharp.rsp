@@ -353,6 +353,7 @@
 "Assets/Scripts/AI/BehaviourTree/Node.cs"
 "Assets/Scripts/AI/BehaviourTree/Selector.cs"
 "Assets/Scripts/AI/BehaviourTree/Sequence.cs"
+"Assets/Scripts/AI/BehaviourTree/Structs/StructAnimationAI.cs"
 "Assets/Scripts/AI/BehaviourTree/Task.cs"
 "Assets/Scripts/AI/BehaviourTree/Tasks/TaskPatrol.cs"
 -langversion:9.0

@@ -8,30 +8,55 @@ namespace BehaviorTree
     {
         private Transform _transform;
         private Transform[] _waypoints;
+        private Animator _animator;
+
+        private StructAnimationAI _structAnimationAI;
+        private string _nameWalkingAnimation;
+        private string _nameIdleAnimation;
 
         private int _currentWaypointIndex = 0;
         private float _speed = 0.0f;
 
-
         private float _waitTime = 1.0f; //in seconds
         private float _waitCounter = 0;
         private bool _waiting = false;
-
 
         public TaskPatrol(Transform transform, Transform[] waypoints, float waitTime)
         {
             _transform = transform;
             _waypoints = waypoints;
             _waitTime = waitTime;
+            if (_transform)
+            {
+                _animator = _transform.GetComponent<Animator>();
+            }
         }
 
         public TaskPatrol(Transform transform, Transform[] waypoints)
         {
             _transform = transform;
             _waypoints = waypoints;
+            if (_transform)
+            {
+                _animator = _transform.GetComponent<Animator>();
+            }
         }
 
+        public void SettingStructureAnimationAI()
+        {
+            if (!_structAnimationAI) return;
+
+            _structAnimationAI.SetAnimator(_animator);
+            _structAnimationAI.SaveDefaultValues();
+        }
+
+        public void SetStructAnimationAI(StructAnimationAI newStructAnimationAI) { _structAnimationAI = newStructAnimationAI; }
+
         public void SetSpeed(float value) { _speed = value; }
+
+        public void SetNameWalkingAnimation(string newNameWalkingAnimation) { _nameWalkingAnimation = newNameWalkingAnimation; }
+
+        public void SetNameIdleAnimation(string newNameIdleAnimation) { _nameIdleAnimation = newNameIdleAnimation; }
 
         public override NodeState Evaluate()
         {
@@ -39,7 +64,15 @@ namespace BehaviorTree
             {
                 _waitCounter += Time.deltaTime;
                 if (_waitCounter > _waitTime)
+                {
                     _waiting = false;
+                    if (_animator)
+                    {
+                        //Camina
+                        _structAnimationAI.ClearValuesAnimationSlots();
+                        _structAnimationAI.SetDataAnimationSlot(_nameWalkingAnimation);
+                    }
+                }
             }
             else
             {
@@ -51,6 +84,12 @@ namespace BehaviorTree
                     _waiting = true;
 
                     _currentWaypointIndex = (_currentWaypointIndex + 1) % _waypoints.Length;
+                    if (_animator)
+                    {
+                        //Idle
+                        _structAnimationAI.ClearValuesAnimationSlots();
+                        _structAnimationAI.SetDataAnimationSlot(_nameIdleAnimation);
+                    }
                 }
                 else
                 {

@@ -6,14 +6,26 @@ namespace BehaviorTree
 {
     public class GuardBT : BehaviourTree
     {
+        [Header("Patrol Settings")]
+        [SerializeField]
+        protected string NameConditionIdleAnimation;
+        [SerializeField]
+        protected string NameConditionWalkingAnimation;
         public Transform[] waypoints;
         public float _speed = 2.0f;
-        //Setearle esta speed a la task "TaskPatrol"
+        public StructAnimationAI structAnimationAI;
+        protected TaskPatrol taskPatrol;
+
         protected override Node SetupTree()
         {
             Node root = new TaskPatrol(transform, waypoints);
-            TaskPatrol taskPatrol = (TaskPatrol)root;
+            taskPatrol = (TaskPatrol)root;
             taskPatrol.SetSpeed(_speed);
+            taskPatrol.SetStructAnimationAI(structAnimationAI);
+            taskPatrol.SetNameIdleAnimation(NameConditionIdleAnimation);
+            taskPatrol.SetNameWalkingAnimation(NameConditionWalkingAnimation);
+            taskPatrol.SettingStructureAnimationAI();
+
             return root;
         }
     }
