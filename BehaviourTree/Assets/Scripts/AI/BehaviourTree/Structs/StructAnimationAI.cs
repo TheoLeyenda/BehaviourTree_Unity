@@ -66,7 +66,11 @@ public class StructAnimationAI : MonoBehaviour
 
     public void ClearValuesAnimationSlots()
     {
-        if (!animator) return;
+        if (!animator)
+        {
+            Debug.LogError("Error: animator null in ClearValuesAnimationSlots() function.");
+            return;
+        }
 
         for (int i = 0; i < registerKeys.Count; i++)
         {
@@ -93,7 +97,12 @@ public class StructAnimationAI : MonoBehaviour
 
     public void SaveDefaultValues()
     {
-        if (!animator) return;
+        if (!animator)
+        {
+            Debug.LogError("Error: animator null in SaveDefaultValues() function.");
+            return;
+        }
+
         for (int i = 0; i < registerKeys.Count; i++)
         {
             if (registerAnimationsDataAI.ContainsKey(registerKeys[i]))
@@ -119,7 +128,12 @@ public class StructAnimationAI : MonoBehaviour
 
     public void ResetValuesAnimationSlots()
     {
-        if (!animator) return;
+        if (!animator)
+        {
+            Debug.LogError("Error: animator null in ResetValuesAnimationSlots() function.");
+            return;
+        }
+
         for (int i = 0; i < registerKeys.Count; i++)
         {
             if (registerAnimationsDataAI.ContainsKey(registerKeys[i]))
@@ -145,7 +159,17 @@ public class StructAnimationAI : MonoBehaviour
 
     public void SetDataAnimationSlot(string animationName)
     {
-        if (!registerAnimationsDataAI.ContainsKey(animationName) || !animator) return;
+        if (!registerAnimationsDataAI.ContainsKey(animationName))
+        {
+            Debug.LogError("Error: Invalid Key in SetDataAnimationSlot() function.");
+            return;
+        }
+
+        if (!animator)
+        {
+            Debug.LogError("Error: animator null in SetDataAnimationSlot() function.");
+            return;
+        }
 
         switch (registerAnimationsDataAI[animationName].typeTransitionAnimationUse)
         {
@@ -161,6 +185,80 @@ public class StructAnimationAI : MonoBehaviour
             case TypeTransitionAnimationUse.TriggerType:
                 animator.SetTrigger(registerAnimationsDataAI[animationName].AnimationName);
                 break;
+        }
+    }
+
+    public void SetIntegerValueAnimationSlot(string animationName, int value)
+    {
+        if (!registerAnimationsDataAI.ContainsKey(animationName))
+        {
+            Debug.LogError("Error: Invalid Key in SetIntegerValueAnimationSlot() function.");
+            return;
+        }
+
+        if (registerAnimationsDataAI[animationName].typeTransitionAnimationUse == TypeTransitionAnimationUse.IntegerType)
+        {
+            registerAnimationsDataAI[animationName].IntegerValue = value;
+        }
+        else
+        {
+            Debug.LogError("Error: Invalid typeTransitionAnimationUse in SetIntegerValueAnimationSlot() function.");
+        }
+    }
+
+    public void SetFloatValueAnimationSlot(string animationName, float value)
+    {
+        if (!registerAnimationsDataAI.ContainsKey(animationName))
+        {
+            Debug.LogError("Error: Invalid Key in SetFloatValueAnimationSlot() function.");
+            return;
+        }
+
+        if (registerAnimationsDataAI[animationName].typeTransitionAnimationUse == TypeTransitionAnimationUse.FloatType)
+        {
+            registerAnimationsDataAI[animationName].FloatValue = value;
+        }
+        else
+        {
+            Debug.LogError("Error: Invalid typeTransitionAnimationUse in SetFloatValueAnimationSlot() function.");
+        }
+    }
+
+    public void SetBooleanValueAnimationSlot(string animationName, bool value)
+    {
+        if (!registerAnimationsDataAI.ContainsKey(animationName))
+        {
+            Debug.LogError("Error: Invalid Key in SetBooleanValueAnimationSlot() function.");
+            return;
+        }
+
+        if (registerAnimationsDataAI[animationName].typeTransitionAnimationUse == TypeTransitionAnimationUse.BooleanType)
+        {
+            registerAnimationsDataAI[animationName].BooleanValue = value;
+        }
+        else
+        {
+            Debug.LogError("Error: Invalid typeTransitionAnimationUse in SetBooleanValueAnimationSlot() function.");
+        }
+    }
+
+    public void SendTriggerValueAnimationSlot(string animationName)
+    {
+        if (!registerAnimationsDataAI.ContainsKey(animationName))
+        {
+            Debug.LogError("Error: Invalid Key in SendTriggerValueAnimationSlot() function.");
+            return;
+        }
+
+        if (!animator)
+        {
+            Debug.LogError("Error: animator null in SendTriggerValueAnimationSlot() function.");
+            return;
+        }
+
+        if (registerAnimationsDataAI[animationName].typeTransitionAnimationUse == TypeTransitionAnimationUse.TriggerType)
+        {
+            animator.SetTrigger(animationName);
         }
     }
 }

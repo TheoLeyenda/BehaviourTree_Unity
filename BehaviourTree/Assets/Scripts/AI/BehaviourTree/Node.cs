@@ -13,7 +13,7 @@ namespace BehaviorTree
     public class Node
     {
         protected NodeState state;
-
+        protected string TypeNode = "Node";
         public Node parent;
         protected List<Node> childrens = new List<Node>();
 
@@ -22,12 +22,32 @@ namespace BehaviorTree
         public Node()
         {
             parent = null;
+            TypeNode = "Node";
         }
 
         public Node(List<Node> _childrens)
         {
             foreach (Node child in _childrens)
                 _Attach(child);
+            TypeNode = "Node";
+        }
+
+        public void ShowChildrens()
+        {
+            if (childrens.Count > 0)
+            {
+                Debug.Log(TypeNode + " contiene: ");
+
+                foreach (Node child in childrens)
+                {
+                    Debug.Log(child.TypeNode);
+                }
+
+                foreach (Node child in childrens)
+                {
+                    child.ShowChildrens();
+                }
+            }
         }
 
         private void _Attach(Node node)
@@ -37,6 +57,8 @@ namespace BehaviorTree
         }
 
         public virtual NodeState Evaluate() => NodeState.FAILURE;
+
+        public string GetTypeNode() { return TypeNode; }
 
         public void SetData(string key, object value)
         {

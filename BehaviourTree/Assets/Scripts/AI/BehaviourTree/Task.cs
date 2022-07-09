@@ -4,5 +4,11 @@ using UnityEngine;
 
 namespace BehaviorTree
 {
-    public class Task : Node{}
+    public class Task : Node
+    {
+        public Task() : base()
+        {
+            TypeNode = "Task";
+        }
+    }
 }

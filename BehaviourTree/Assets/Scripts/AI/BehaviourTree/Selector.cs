@@ -6,8 +6,14 @@ namespace BehaviorTree
 {
     public class Selector : Node
     {
-        public Selector() : base() { }
-        public Selector(List<Node> childrens) : base(childrens) { }
+        public Selector() : base()
+        {
+            TypeNode = "Selector";
+        }
+        public Selector(List<Node> childrens) : base(childrens)
+        {
+            TypeNode = "Selector";
+        }
 
         public override NodeState Evaluate()
         {

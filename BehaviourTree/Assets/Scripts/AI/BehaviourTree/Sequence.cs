@@ -7,8 +7,14 @@ namespace BehaviorTree
 {
     public class Sequence : Node
     {
-        public Sequence() : base() { }
-        public Sequence(List<Node> childrens) : base(childrens) { }
+        public Sequence() : base()
+        {
+            TypeNode = "Sequence";
+        }
+        public Sequence(List<Node> childrens) : base(childrens)
+        {
+            TypeNode = "Sequence";
+        }
 
         public override NodeState Evaluate()
         {

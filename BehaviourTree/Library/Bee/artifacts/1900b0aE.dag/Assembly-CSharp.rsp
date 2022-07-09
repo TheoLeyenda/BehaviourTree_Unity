@@ -355,6 +355,8 @@
 "Assets/Scripts/AI/BehaviourTree/Sequence.cs"
 "Assets/Scripts/AI/BehaviourTree/Structs/StructAnimationAI.cs"
 "Assets/Scripts/AI/BehaviourTree/Task.cs"
+"Assets/Scripts/AI/BehaviourTree/Tasks/CheckEnemyInFOVRange.cs"
+"Assets/Scripts/AI/BehaviourTree/Tasks/TaskGoToTarget.cs"
 "Assets/Scripts/AI/BehaviourTree/Tasks/TaskPatrol.cs"
 -langversion:9.0
 
