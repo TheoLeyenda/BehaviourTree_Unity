@@ -50,7 +50,6 @@ public class GuardBT : BehaviourTree
         taskPatrol.SetNameIdleAnimation(NameConditionIdleAnimation_TaskPatrol);
         taskPatrol.SetNameWalkingAnimation(NameConditionWalkingAnimation_TaskPatrol);
 
-        Debug.Log(EnemyLayerMask.value);
         taskCheckEnemyInFOVRange = new CheckEnemyInFOVRange(transform, EnemyLayerMask.value, _fovRange, null, NameDataTarget);
         taskCheckEnemyInFOVRange.SetStructAnimationAI(structAnimationAI);
         taskCheckEnemyInFOVRange.SetNameWalkingAnimation(NameConditionWalkingAnimation_TaskCheckEnemyInFOVRange);

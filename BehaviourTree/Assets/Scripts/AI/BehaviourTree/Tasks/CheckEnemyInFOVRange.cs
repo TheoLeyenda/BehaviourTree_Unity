@@ -54,21 +54,16 @@ public class CheckEnemyInFOVRange : Task
                         _structAnimationAI.ClearValuesAnimationSlots();
                         _structAnimationAI.SetDataAnimationSlot(_nameWalkingAnimation);
                     }
-                    Debug.Log("Sussece CheckEnemyInFOVRange");
                     state = NodeState.SUCCESSE;
                     return state;
                 }
                 else
                 {
-                    Debug.Log("_rootNode Nulo");
+                    Debug.LogError("_rootNode Nulo");
                 }
 
                 state = NodeState.FAILURE;
                 return state;
-            }
-            else
-            {
-                Debug.Log("Sabes que no.");
             }
         }
         state = NodeState.SUCCESSE;
