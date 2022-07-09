@@ -863,76 +863,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Caballero
       objectReference: {fileID: 0}
+    - target: {fileID: 2345188186670296672, guid: a07b21e6225aa414c92a08ba51eeba13, type: 3}
+      propertyPath: waypoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 1660674061}
+    - target: {fileID: 2345188186670296672, guid: a07b21e6225aa414c92a08ba51eeba13, type: 3}
+      propertyPath: waypoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 517152821}
+    - target: {fileID: 2345188186670296672, guid: a07b21e6225aa414c92a08ba51eeba13, type: 3}
+      propertyPath: waypoints.Array.data[2]
+      value: 
+      objectReference: {fileID: 1732943737}
+    - target: {fileID: 2345188186670296672, guid: a07b21e6225aa414c92a08ba51eeba13, type: 3}
+      propertyPath: waypoints.Array.data[3]
+      value: 
+      objectReference: {fileID: 190477638}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a07b21e6225aa414c92a08ba51eeba13, type: 3}
---- !u!1 &2345188186670296671 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2345188185101773197, guid: a07b21e6225aa414c92a08ba51eeba13, type: 3}
-  m_PrefabInstance: {fileID: 2345188186670296670}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2345188186670296672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2345188186670296671}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 210998a8d162b8d46825f40f94c2419e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NameConditionIdleAnimation: Idle
-  NameConditionWalkingAnimation: CombatWalk
-  waypoints:
-  - {fileID: 1660674061}
-  - {fileID: 517152821}
-  - {fileID: 1732943737}
-  - {fileID: 190477638}
-  _speed: 2
-  structAnimationAI: {fileID: 2345188186670296673}
---- !u!114 &2345188186670296673
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2345188186670296671}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b239d3a28ad5eb14f8a0d5b018d1f14a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AnimationsDataAI:
-  - AnimationName: Idle
-    typeTransitionAnimationUse: 2
-    FloatValue: 0
-    IntegerValue: 0
-    BooleanValue: 1
-    DefaultFloatValue: 0
-    DefaultIntegerValue: 0
-    DefaultBooleanValue: 0
-  - AnimationName: CombatWalk
-    typeTransitionAnimationUse: 2
-    FloatValue: 0
-    IntegerValue: 0
-    BooleanValue: 1
-    DefaultFloatValue: 0
-    DefaultIntegerValue: 0
-    DefaultBooleanValue: 0
-  - AnimationName: Charge
-    typeTransitionAnimationUse: 2
-    FloatValue: 0
-    IntegerValue: 0
-    BooleanValue: 1
-    DefaultFloatValue: 0
-    DefaultIntegerValue: 0
-    DefaultBooleanValue: 0
-  - AnimationName: Attack
-    typeTransitionAnimationUse: 2
-    FloatValue: 0
-    IntegerValue: 0
-    BooleanValue: 1
-    DefaultFloatValue: 0
-    DefaultIntegerValue: 0
-    DefaultBooleanValue: 0

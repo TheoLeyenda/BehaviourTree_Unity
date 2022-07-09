@@ -113,6 +113,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2345188185101350381}
   - component: {fileID: 2345188185111157311}
+  - component: {fileID: 2345188186670296672}
+  - component: {fileID: 2345188186670296673}
   m_Layer: 0
   m_Name: Caballero
   m_TagString: Untagged
@@ -157,6 +159,72 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2345188186670296672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2345188185101773197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 210998a8d162b8d46825f40f94c2419e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NameConditionIdleAnimation: Idle
+  NameConditionWalkingAnimation: CombatWalk
+  waypoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _speed: 2
+  structAnimationAI: {fileID: 2345188186670296673}
+--- !u!114 &2345188186670296673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2345188185101773197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b239d3a28ad5eb14f8a0d5b018d1f14a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AnimationsDataAI:
+  - AnimationName: Idle
+    typeTransitionAnimationUse: 2
+    FloatValue: 0
+    IntegerValue: 0
+    BooleanValue: 1
+    DefaultFloatValue: 0
+    DefaultIntegerValue: 0
+    DefaultBooleanValue: 0
+  - AnimationName: CombatWalk
+    typeTransitionAnimationUse: 2
+    FloatValue: 0
+    IntegerValue: 0
+    BooleanValue: 1
+    DefaultFloatValue: 0
+    DefaultIntegerValue: 0
+    DefaultBooleanValue: 0
+  - AnimationName: Charge
+    typeTransitionAnimationUse: 2
+    FloatValue: 0
+    IntegerValue: 0
+    BooleanValue: 1
+    DefaultFloatValue: 0
+    DefaultIntegerValue: 0
+    DefaultBooleanValue: 0
+  - AnimationName: Attack
+    typeTransitionAnimationUse: 2
+    FloatValue: 0
+    IntegerValue: 0
+    BooleanValue: 1
+    DefaultFloatValue: 0
+    DefaultIntegerValue: 0
+    DefaultBooleanValue: 0
 --- !u!1 &2345188185101773199
 GameObject:
   m_ObjectHideFlags: 0
