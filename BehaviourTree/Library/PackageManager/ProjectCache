@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637927144034744592
-    m_Hash: 3001020010
+      ticks: 637933509457669627
+    m_Hash: 3556567701
   m_LockFileStatus:
     m_FilePath: C:/Users/theof/Desktop/BehaviorThree_Unity/BehaviourTree/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637927145643994168
-    m_Hash: 935474477
+      ticks: 637933509457669627
+    m_Hash: 2056661518
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_LocalPackages:
