@@ -471,6 +471,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f4313a771e05c64d8da7ae6bd19a19f, type: 3}
+--- !u!1 &673340208 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 165424, guid: 9f4313a771e05c64d8da7ae6bd19a19f, type: 3}
+  m_PrefabInstance: {fileID: 673340207}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &673340209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 673340208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b4fda7e17e7de14ebbfb1f1811865c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HealthPoints: 30
 --- !u!1 &751113246
 GameObject:
   m_ObjectHideFlags: 0
@@ -864,6 +882,18 @@ PrefabInstance:
       value: Caballero
       objectReference: {fileID: 0}
     - target: {fileID: 2345188186670296672, guid: a07b21e6225aa414c92a08ba51eeba13, type: 3}
+      propertyPath: attackTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2345188186670296672, guid: a07b21e6225aa414c92a08ba51eeba13, type: 3}
+      propertyPath: attackRange
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2345188186670296672, guid: a07b21e6225aa414c92a08ba51eeba13, type: 3}
+      propertyPath: damageAttack
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2345188186670296672, guid: a07b21e6225aa414c92a08ba51eeba13, type: 3}
       propertyPath: DistanceToTarget
       value: 1.1
       objectReference: {fileID: 0}
@@ -883,5 +913,13 @@ PrefabInstance:
       propertyPath: waypoints.Array.data[3]
       value: 
       objectReference: {fileID: 190477638}
+    - target: {fileID: 2345188186670296672, guid: a07b21e6225aa414c92a08ba51eeba13, type: 3}
+      propertyPath: NameConditionWalkingAnimation_TaskAttack
+      value: CombatWalk
+      objectReference: {fileID: 0}
+    - target: {fileID: 2345188186670296672, guid: a07b21e6225aa414c92a08ba51eeba13, type: 3}
+      propertyPath: NameConditionAttackAnimation_TaskCheckEnemyInAttackRange
+      value: Attack
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a07b21e6225aa414c92a08ba51eeba13, type: 3}

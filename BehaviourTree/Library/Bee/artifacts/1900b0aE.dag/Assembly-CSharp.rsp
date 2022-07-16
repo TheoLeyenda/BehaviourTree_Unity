@@ -355,9 +355,12 @@
 "Assets/BehaviourTree Package/Scripts/AI/BehaviourTree/Sequence.cs"
 "Assets/BehaviourTree Package/Scripts/AI/BehaviourTree/Structs/StructAnimationAI.cs"
 "Assets/BehaviourTree Package/Scripts/AI/BehaviourTree/Task.cs"
+"Assets/BehaviourTree Package/Scripts/AI/BehaviourTree/Tasks/CheckEnemyInAttackRange.cs"
 "Assets/BehaviourTree Package/Scripts/AI/BehaviourTree/Tasks/CheckEnemyInFOVRange.cs"
+"Assets/BehaviourTree Package/Scripts/AI/BehaviourTree/Tasks/TaskAttack.cs"
 "Assets/BehaviourTree Package/Scripts/AI/BehaviourTree/Tasks/TaskGoToTarget.cs"
 "Assets/BehaviourTree Package/Scripts/AI/BehaviourTree/Tasks/TaskPatrol.cs"
+"Assets/BehaviourTree Package/Scripts/HealthComponent.cs"
 -langversion:9.0
 
 /deterministic
