@@ -11,7 +11,7 @@ public class GuardBT : BehaviourTree
     protected string NameDataTarget = "target";
     private Animator animator;
 
-    [Header("Patrol Settings")]
+    [Header("Task Patrol Settings")]
     [SerializeField]
     protected string NameConditionIdleAnimation_TaskPatrol;
     [SerializeField]
@@ -25,7 +25,7 @@ public class GuardBT : BehaviourTree
     public Transform[] waypoints;
     protected TaskPatrol taskPatrol; 
 
-    [Header("Check Enemy In Fov Range Settings")]
+    [Header("Task Check Enemy In Fov Range Settings")]
     [SerializeField]
     protected string NameConditionWalkingAnimation_TaskCheckEnemyInFOVRange;
     [SerializeField]
@@ -34,21 +34,21 @@ public class GuardBT : BehaviourTree
     protected float _fovRange = 6.0f;
     protected CheckEnemyInFOVRange taskCheckEnemyInFOVRange;
 
-    [Header("Go To Target Settings")]
+    [Header("Task Go To Target Settings")]
     [SerializeField]
     protected float DistanceToTarget = 0.02f;
     [SerializeField]
     protected float speedGoToTarget = 4.0f;
     protected TaskGoToTarget taskGoToTarget;
 
-    [Header("Check Enemy In Attack Range")]
+    [Header("Task Check Enemy In Attack Range")]
     [SerializeField]
     protected float attackRange;
     [SerializeField]
     protected string NameConditionAttackAnimation_TaskCheckEnemyInAttackRange;
     protected CheckEnemyInAttackRange taskCheckEnemyInAttackRange;
 
-    [Header("TaskAttack")]
+    [Header("Task Attack")]
     [SerializeField]
     protected float attackTime;
     [SerializeField]
@@ -57,12 +57,12 @@ public class GuardBT : BehaviourTree
     protected string NameConditionWalkingAnimation_TaskAttack;
     protected TaskAttack taskAttack;
 
-    [Header("ServiceCounter")]
+    [Header("Service Counter")]
     [SerializeField]
     protected float intervalServiceCounter;
     protected ServiceCounter serviceCounter;
 
-    [Header("ServiceNotify")]
+    [Header("Service Notify")]
     [SerializeField]
     protected float intervalServiceNotify;
     protected ServiceNotifiy serviceNotifiy;
