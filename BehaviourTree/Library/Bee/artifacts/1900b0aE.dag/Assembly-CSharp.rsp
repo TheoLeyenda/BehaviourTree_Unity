@@ -358,6 +358,7 @@
 "Assets/BehaviourTree Package/Scripts/AI/BehaviourTree/Sequence.cs"
 "Assets/BehaviourTree Package/Scripts/AI/BehaviourTree/Service.cs"
 "Assets/BehaviourTree Package/Scripts/AI/BehaviourTree/Services/ServiceCounter.cs"
+"Assets/BehaviourTree Package/Scripts/AI/BehaviourTree/Services/ServiceNotifiy.cs"
 "Assets/BehaviourTree Package/Scripts/AI/BehaviourTree/Structs/StructAnimationAI.cs"
 "Assets/BehaviourTree Package/Scripts/AI/BehaviourTree/Task.cs"
 "Assets/BehaviourTree Package/Scripts/AI/BehaviourTree/Tasks/CheckEnemyInAttackRange.cs"

@@ -123,17 +123,24 @@ namespace BehaviorTree
         public void RemoveService(Service ServiceToRemove)
         {
             services.Remove(ServiceToRemove);
-        }
-
-        public void RemoveService(int IndexToRemove)
-        {
-            services.RemoveAt(IndexToRemove);
+            UnityEngine.GameObject.Destroy(ServiceToRemove);
         }
 
         public void ClearAllServices()
         {
+            List<Service> auxList = new List<Service>();
+            for (int i = 0; i < services.Count; i++)
+            {
+                auxList.Add(services[i]);
+            }
+            for (int i = 0; i < auxList.Count; i++)
+            {
+                RemoveService(auxList[i]);
+            }
+            auxList.Clear();
             services.Clear();
         }
+
         public void ShowCountServices()
         {
             Debug.Log("Services Count: "+services.Count);

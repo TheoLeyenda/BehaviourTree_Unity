@@ -62,6 +62,11 @@ public class GuardBT : BehaviourTree
     protected float intervalServiceCounter;
     protected ServiceCounter serviceCounter;
 
+    [Header("ServiceNotify")]
+    [SerializeField]
+    protected float intervalServiceNotify;
+    protected ServiceNotifiy serviceNotifiy;
+
     protected override Node SetupTree()
     {
         animator = GetComponent<Animator>();
@@ -87,7 +92,13 @@ public class GuardBT : BehaviourTree
 
         serviceCounter = gameObject.AddComponent<ServiceCounter>();
         serviceCounter.SetInterval(intervalServiceCounter);
+        serviceCounter.ActivateUpdateService();
         taskAttack.AddService(serviceCounter);
+
+        serviceNotifiy = gameObject.AddComponent<ServiceNotifiy>();
+        serviceNotifiy.SetInterval(intervalServiceNotify);
+        serviceNotifiy.ActivateUpdateService();
+        taskAttack.AddService(serviceNotifiy);
 
         SettingStructureAnimationAI();
 
@@ -123,10 +134,15 @@ public class GuardBT : BehaviourTree
         structAnimationAI.SaveDefaultValues();
     }
 
-    protected override void Update()
+    /*protected override void Update()
     {
         base.Update();
 
+
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            taskAttack.RemoveService(serviceNotifiy);
+        }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             taskAttack.RemoveService(serviceCounter);
@@ -137,7 +153,19 @@ public class GuardBT : BehaviourTree
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            taskAttack.RemoveService(0);
+            serviceCounter.DisableUpdateService();
         }
-    }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            serviceCounter.ActivateUpdateService();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            serviceNotifiy.DisableUpdateService();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            serviceNotifiy.ActivateUpdateService();
+        }
+    }*/
 }

@@ -197,6 +197,7 @@ MonoBehaviour:
   damageAttack: 10
   NameConditionWalkingAnimation_TaskAttack: CombatWalk
   intervalServiceCounter: 1
+  intervalServiceNotify: 5
 --- !u!114 &2345188186670296673
 MonoBehaviour:
   m_ObjectHideFlags: 0

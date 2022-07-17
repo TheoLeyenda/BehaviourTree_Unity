@@ -5,10 +5,9 @@ using UnityEngine;
 using BehaviorTree;
 public class ServiceCounter : Service
 {
-
     private float _counterOnBecomeRelevat = 0;
 
-    private float _counterFixedUpdate = 0;
+    private float _counterUpdate = 0;
 
     public override void OnBecomeRelevant()
     {
@@ -18,13 +17,11 @@ public class ServiceCounter : Service
 
         Debug.Log("OnBecomeRelevant: " + _counterOnBecomeRelevat);
     }
-
-    protected override void FixedUpdate()
+    protected override IEnumerator UpdateService()
     {
-        base.FixedUpdate();
-
-        _counterFixedUpdate++;
-
-        Debug.Log("FixedUpdate: " + _counterFixedUpdate);
+        _counterUpdate++;
+        
+        Debug.Log("UpdateService: " + _counterUpdate);
+        return base.UpdateService();
     }
 }
