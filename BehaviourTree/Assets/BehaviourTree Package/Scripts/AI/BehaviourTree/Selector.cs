@@ -17,6 +17,7 @@ namespace BehaviorTree
 
         public override NodeState Evaluate()
         {
+            base.Evaluate();
             foreach (Node node in childrens)
             {
                 switch (node.Evaluate())

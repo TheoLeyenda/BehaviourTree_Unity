@@ -27,6 +27,7 @@ public class TaskGoToTarget : Task
 
     public override NodeState Evaluate()
     {
+        base.Evaluate();
         Transform target = (Transform)GetData(_nameDataTarget);
         if (target)
         {

@@ -882,22 +882,6 @@ PrefabInstance:
       value: Caballero
       objectReference: {fileID: 0}
     - target: {fileID: 2345188186670296672, guid: a07b21e6225aa414c92a08ba51eeba13, type: 3}
-      propertyPath: attackTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2345188186670296672, guid: a07b21e6225aa414c92a08ba51eeba13, type: 3}
-      propertyPath: attackRange
-      value: 1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2345188186670296672, guid: a07b21e6225aa414c92a08ba51eeba13, type: 3}
-      propertyPath: damageAttack
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2345188186670296672, guid: a07b21e6225aa414c92a08ba51eeba13, type: 3}
-      propertyPath: DistanceToTarget
-      value: 1.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2345188186670296672, guid: a07b21e6225aa414c92a08ba51eeba13, type: 3}
       propertyPath: waypoints.Array.data[0]
       value: 
       objectReference: {fileID: 1660674061}
@@ -913,13 +897,5 @@ PrefabInstance:
       propertyPath: waypoints.Array.data[3]
       value: 
       objectReference: {fileID: 190477638}
-    - target: {fileID: 2345188186670296672, guid: a07b21e6225aa414c92a08ba51eeba13, type: 3}
-      propertyPath: NameConditionWalkingAnimation_TaskAttack
-      value: CombatWalk
-      objectReference: {fileID: 0}
-    - target: {fileID: 2345188186670296672, guid: a07b21e6225aa414c92a08ba51eeba13, type: 3}
-      propertyPath: NameConditionAttackAnimation_TaskCheckEnemyInAttackRange
-      value: Attack
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a07b21e6225aa414c92a08ba51eeba13, type: 3}

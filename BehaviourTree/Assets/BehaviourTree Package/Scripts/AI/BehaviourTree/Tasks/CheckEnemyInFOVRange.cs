@@ -37,7 +37,7 @@ public class CheckEnemyInFOVRange : Task
 
     public override NodeState Evaluate()
     {
-        //Debug.Log("Evaluate");
+        base.Evaluate();
         object t = GetData(_nameDataTarget);
         if (t == null)
         {

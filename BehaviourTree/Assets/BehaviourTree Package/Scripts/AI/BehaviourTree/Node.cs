@@ -16,6 +16,7 @@ namespace BehaviorTree
         protected string TypeNode = "Node";
         public Node parent;
         protected List<Node> childrens = new List<Node>();
+        protected List<Service> services = new List<Service>();
 
         private Dictionary<string, object> _dataContext = new Dictionary<string, object>();
 
@@ -56,7 +57,18 @@ namespace BehaviorTree
             childrens.Add(node);
         }
 
-        public virtual NodeState Evaluate() => NodeState.FAILURE;
+        public virtual NodeState Evaluate()
+        {
+            for (int i = 0; i < services.Count; i++)
+            {
+                if (services[i] != null)
+                {
+                    Debug.Log(TypeNode);
+                    services[i].OnBecomeRelevant();
+                }
+            }
+            return NodeState.FAILURE;
+        }
 
         public string GetTypeNode() { return TypeNode; }
 
@@ -101,6 +113,30 @@ namespace BehaviorTree
                 node = node.parent;
             }
             return false;
+        }
+
+        public void AddService(Service NewService)
+        {
+            services.Add(NewService);
+        }
+
+        public void RemoveService(Service ServiceToRemove)
+        {
+            services.Remove(ServiceToRemove);
+        }
+
+        public void RemoveService(int IndexToRemove)
+        {
+            services.RemoveAt(IndexToRemove);
+        }
+
+        public void ClearAllServices()
+        {
+            services.Clear();
+        }
+        public void ShowCountServices()
+        {
+            Debug.Log("Services Count: "+services.Count);
         }
     }
 }

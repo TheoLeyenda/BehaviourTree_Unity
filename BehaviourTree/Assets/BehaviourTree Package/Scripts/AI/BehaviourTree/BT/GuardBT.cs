@@ -57,6 +57,11 @@ public class GuardBT : BehaviourTree
     protected string NameConditionWalkingAnimation_TaskAttack;
     protected TaskAttack taskAttack;
 
+    [Header("ServiceCounter")]
+    [SerializeField]
+    protected float intervalServiceCounter;
+    protected ServiceCounter serviceCounter;
+
     protected override Node SetupTree()
     {
         animator = GetComponent<Animator>();
@@ -79,6 +84,10 @@ public class GuardBT : BehaviourTree
         taskAttack = new TaskAttack(transform, NameDataTarget, attackTime, damageAttack);
         taskAttack.SetNameAnimationWalking(NameConditionWalkingAnimation_TaskAttack);
         taskAttack.SetStructAnimationAI(structAnimationAI);
+
+        serviceCounter = gameObject.AddComponent<ServiceCounter>();
+        serviceCounter.SetInterval(intervalServiceCounter);
+        taskAttack.AddService(serviceCounter);
 
         SettingStructureAnimationAI();
 
@@ -112,5 +121,23 @@ public class GuardBT : BehaviourTree
 
         structAnimationAI.SetAnimator(animator);
         structAnimationAI.SaveDefaultValues();
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            taskAttack.RemoveService(serviceCounter);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            taskAttack.ClearAllServices();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            taskAttack.RemoveService(0);
+        }
     }
 }

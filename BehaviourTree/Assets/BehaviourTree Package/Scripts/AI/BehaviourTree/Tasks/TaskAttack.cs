@@ -25,6 +25,7 @@ public class TaskAttack : Task
         _nameData = nameData;
         _attackTime = attackTime;
         _damageAttack = damageAttack;
+        TypeNode = "TaskAttack";
     }
 
     public void SetStructAnimationAI(StructAnimationAI structAnimationAI) { _structAnimationAI = structAnimationAI; }
@@ -33,6 +34,7 @@ public class TaskAttack : Task
 
     public override NodeState Evaluate()
     {
+        base.Evaluate();
         Transform target = (Transform)GetData(_nameData);
 
         if (target != _lastTarget)

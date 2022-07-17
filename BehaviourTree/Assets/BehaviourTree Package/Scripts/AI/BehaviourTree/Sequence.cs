@@ -18,6 +18,7 @@ namespace BehaviorTree
 
         public override NodeState Evaluate()
         {
+            base.Evaluate();
             bool anyChildIsRunning = false;
             foreach (Node node in childrens)
             {

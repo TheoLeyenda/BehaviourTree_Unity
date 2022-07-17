@@ -59,6 +59,7 @@ public class TaskPatrol : Task
 
     public override NodeState Evaluate()
     {
+        base.Evaluate();
         if (_waiting)
         {
             _waitCounter += Time.deltaTime;

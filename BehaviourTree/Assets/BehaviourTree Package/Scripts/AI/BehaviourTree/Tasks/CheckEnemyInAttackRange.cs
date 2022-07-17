@@ -16,6 +16,7 @@ public class CheckEnemyInAttackRange : Task
         _transform = transform;
         _nameData = nameData;
         _attackRange = attackRange;
+        TypeNode = "CheckEnemyInAttackRange";
     }
 
     public void SetStructAnimationAI(StructAnimationAI structAnimationAI) { _structAnimationAI = structAnimationAI; }
@@ -24,6 +25,7 @@ public class CheckEnemyInAttackRange : Task
 
     public override NodeState Evaluate()
     {
+        base.Evaluate();
         object t = GetData(_nameData);
         if (t == null)
         {
