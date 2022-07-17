@@ -17,11 +17,11 @@ public class ServiceCounter : Service
 
         Debug.Log("OnBecomeRelevant: " + _counterOnBecomeRelevat);
     }
-    protected override IEnumerator UpdateService()
+    protected override void UpdateService()
     {
+        base.UpdateService();
         _counterUpdate++;
         
         Debug.Log("UpdateService: " + _counterUpdate);
-        return base.UpdateService();
     }
 }

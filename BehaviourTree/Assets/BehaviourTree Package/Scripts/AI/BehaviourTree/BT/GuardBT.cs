@@ -134,7 +134,7 @@ public class GuardBT : BehaviourTree
         structAnimationAI.SaveDefaultValues();
     }
 
-    /*protected override void Update()
+    protected override void Update()
     {
         base.Update();
 
@@ -167,5 +167,5 @@ public class GuardBT : BehaviourTree
         {
             serviceNotifiy.ActivateUpdateService();
         }
-    }*/
+    }
 }

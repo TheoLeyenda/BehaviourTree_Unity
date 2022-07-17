@@ -11,9 +11,8 @@ public class ServiceNotifiy : Service
 
         Debug.Log("OnBecomeRelevant: Notify!");
     }
-    protected override IEnumerator UpdateService()
+    protected override void UpdateService()
     {
         Debug.Log("UpdateService: Notify!");
-        return base.UpdateService();
     }
 }

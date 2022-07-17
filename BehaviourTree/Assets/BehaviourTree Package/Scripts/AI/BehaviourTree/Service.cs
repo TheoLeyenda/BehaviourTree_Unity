@@ -23,28 +23,30 @@ namespace BehaviorTree
 
         public void ActivateUpdateService()
         {
-            StartCoroutine(UpdateService());
+            StartCoroutine(InternalUpdateService());
             _useUpdate = true;
         }
 
         public void DisableUpdateService()
         {
-            StopCoroutine(UpdateService());
+            StopCoroutine(InternalUpdateService());
             _useUpdate = false;
         }
 
         public virtual void OnBecomeRelevant() { }
 
-        protected virtual IEnumerator UpdateService()
+        private IEnumerator InternalUpdateService()
         {
             yield return new WaitForSeconds(_interval);
 
             if (_useUpdate)
             {
-                StartCoroutine(UpdateService());
+                UpdateService();
+                StartCoroutine(InternalUpdateService());
             }
         }
 
+        protected virtual void UpdateService(){}
 
     }
 }
