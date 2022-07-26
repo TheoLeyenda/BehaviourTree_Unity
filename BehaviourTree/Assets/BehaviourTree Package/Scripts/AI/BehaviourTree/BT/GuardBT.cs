@@ -134,9 +134,10 @@ public class GuardBT : BehaviourTree
         structAnimationAI.SaveDefaultValues();
     }
 
-    protected override void Update()
+    //ESTO ES SOLO PARA TESTING SE PUEDE BORRAR.
+    protected override void UpdateBehaviourTree()
     {
-        base.Update();
+        base.UpdateBehaviourTree();
 
 
         if (Input.GetKeyDown(KeyCode.Alpha0))
