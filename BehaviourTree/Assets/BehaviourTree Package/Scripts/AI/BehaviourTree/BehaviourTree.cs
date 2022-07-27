@@ -7,39 +7,34 @@ namespace BehaviorTree
     public abstract class BehaviourTree : MonoBehaviour
     {
         private Node _root = null;
-
-        private BehaviourTreeManager BTM;
-
+        private bool isRunning = true;
         protected virtual void Start()
         {
-            InitBTM();
-            CheckIsValidBTM();
-            _root = SetupTree();
             StartLogic();
-        }
-        protected void InitBTM()
-        {
-            BTM = BehaviourTreeManager.InstanceBTM;
+            _root = SetupTree();
         }
 
-        protected bool CheckIsValidBTM() 
+        public virtual void Update()
         {
-            if (BTM) 
+            if (isRunning)
             {
-                return true;
+                if (_root != null)
+                    _root.Evaluate();
+                else
+                {
+                    Debug.Log("RootNull");
+                }
             }
-            Debug.LogError("Error: There is no BehaviourTreeManager in the scene, BTM is NULL");
-            return false;
         }
 
-        public virtual void UpdateBehaviourTree()
+        public void StartLogic() 
         {
-            if (_root != null)
-                _root.Evaluate();
-            else
-            {
-                Debug.Log("RootNull");
-            }
+            isRunning = true;
+        }
+
+        public void StopLogic() 
+        {
+            isRunning = false;
         }
 
         protected abstract Node SetupTree();
@@ -50,22 +45,6 @@ namespace BehaviorTree
             if (_root != null)
             {
                 _root.ShowChildrens();
-            }
-        }
-
-        public void StartLogic() 
-        {
-            if (CheckIsValidBTM()) 
-            {
-                BTM.AddBehaviourTreesToRun(this);
-            }
-        }
-
-        public void StopLogic()
-        {
-            if (CheckIsValidBTM())
-            {
-                BTM.RemoveBehaviourTreeToRun(this);
             }
         }
     }

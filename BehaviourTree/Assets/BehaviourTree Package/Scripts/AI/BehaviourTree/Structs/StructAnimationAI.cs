@@ -34,13 +34,12 @@ public class StructAnimationAI : MonoBehaviour
 
     [SerializeField]
     private AnimationDataAI[] AnimationsDataAI;
-    private List<string> registerKeys;
+    private List<string> registerKeys = new List<string>();
     private Animator animator;
     private Dictionary<string, AnimationDataAI> registerAnimationsDataAI = new Dictionary<string, AnimationDataAI>();
 
     public void Start()
     {
-        registerKeys = new List<string>();
         InitRegisterAnimationData();
     }
 

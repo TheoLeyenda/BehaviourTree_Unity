@@ -23,7 +23,7 @@ public class GuardBT : BehaviourTree
     [SerializeField]
     protected float DistanceToWaypoint = 0.02f;
     public Transform[] waypoints;
-    protected TaskPatrol taskPatrol; 
+    protected TaskPatrol taskPatrol;
 
     [Header("Task Check Enemy In Fov Range Settings")]
     [SerializeField]
@@ -135,10 +135,9 @@ public class GuardBT : BehaviourTree
     }
 
     //ESTO ES SOLO PARA TESTING SE PUEDE BORRAR.
-    public override void UpdateBehaviourTree()
+    public override void Update()
     {
-        base.UpdateBehaviourTree();
-
+        base.Update();
 
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {

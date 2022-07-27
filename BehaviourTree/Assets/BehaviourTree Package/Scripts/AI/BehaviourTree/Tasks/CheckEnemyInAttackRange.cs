@@ -22,7 +22,6 @@ public class CheckEnemyInAttackRange : Task
     public void SetStructAnimationAI(StructAnimationAI structAnimationAI) { _structAnimationAI = structAnimationAI; }
 
     public void SetNameAnimationAttack(string nameAnimationAttack) { _nameAnimationAttack = nameAnimationAttack; }
-
     public override NodeState Evaluate()
     {
         base.Evaluate();
@@ -34,17 +33,19 @@ public class CheckEnemyInAttackRange : Task
         }
 
         Transform target = (Transform)t;
-        if (Vector3.Distance(_transform.position, target.position) <= _attackRange)
+        if (target)
         {
-            if (_structAnimationAI)
+            if (Vector3.Distance(_transform.position, target.position) <= _attackRange)
             {
-                _structAnimationAI.ClearValuesAnimationSlots();
-                _structAnimationAI.SetDataAnimationSlot(_nameAnimationAttack);
+                if (_structAnimationAI)
+                {
+                    _structAnimationAI.ClearValuesAnimationSlots();
+                    _structAnimationAI.SetDataAnimationSlot(_nameAnimationAttack);
+                }
+                state = NodeState.SUCCESSE;
+                return state;
             }
-            state = NodeState.SUCCESSE;
-            return state;
         }
-
         state = NodeState.FAILURE;
         return state;
     }

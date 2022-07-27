@@ -193,6 +193,7 @@ MonoBehaviour:
   speedGoToTarget: 4
   attackRange: 1.1
   NameConditionAttackAnimation_TaskCheckEnemyInAttackRange: Attack
+  NameConditionWalkingAnimation_TaskCheckEnemyInAttackRange: CombatWalk
   attackTime: 1
   damageAttack: 10
   NameConditionWalkingAnimation_TaskAttack: CombatWalk

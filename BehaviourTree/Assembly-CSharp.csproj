@@ -58,7 +58,6 @@
   <ItemGroup>
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Task.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\Test\Rotate.cs" />
-    <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\BehaviourTreeManager.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\BT\GuardBT.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\BehaviourTree.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Tasks\TaskPatrol.cs" />
