@@ -241,6 +241,14 @@ public class StructAnimationAI : MonoBehaviour
         }
     }
 
+    public void PlayAnimation(string NameId)
+    {
+        if (animator)
+        {
+            animator.Play(NameId);
+        }
+    }
+
     public void SendTriggerValueAnimationSlot(string animationName)
     {
         if (!registerAnimationsDataAI.ContainsKey(animationName))
