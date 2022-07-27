@@ -46,6 +46,11 @@ public class CheckEnemyInAttackRange : Task
                 return state;
             }
         }
+        else 
+        {
+            state = NodeState.SUCCESSE;
+            return state;
+        }
         state = NodeState.FAILURE;
         return state;
     }

@@ -60,6 +60,13 @@ public class TaskAttack : Task
             }
         }
 
+        if (target == null || !_enemyHealthComponent) 
+        {
+            ClearData(_nameData);
+            _structAnimationAI.ClearValuesAnimationSlots();
+            _structAnimationAI.SetDataAnimationSlot(_nameAnimationWalking);
+        }
+
         state = NodeState.RUNNING;
         return state;
     }
