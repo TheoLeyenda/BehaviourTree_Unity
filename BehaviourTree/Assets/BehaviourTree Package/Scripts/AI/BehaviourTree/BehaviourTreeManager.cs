@@ -9,9 +9,11 @@ namespace BehaviorTree {
         [Min(0), SerializeField]
         private float Interval = 0.5f; //InSeconds
 
+        private bool isRunning = true;
+
         public static BehaviourTreeManager InstanceBTM;
 
-        private List<BehaviourTree> BehaviourTreesToRun;
+        private List<BehaviourTree> BehaviourTreesToRun = new List<BehaviourTree>();
 
         private Thread thread;
 
@@ -29,11 +31,10 @@ namespace BehaviorTree {
 
         private void Start()
         {
-
             //ACA VOY A CORRER EN UN THREAD TODOS LOS UPDATES DE LOS BEHAVIUR TREE
+            StartManager();
             SetInterval(Interval);
             StartThreadQueuer(() => { UpdateBehaviurTrees(); } );
-
         }
 
         private void UpdateBehaviurTrees()
@@ -50,10 +51,10 @@ namespace BehaviorTree {
             Debug.Log("Solo se ejecuto una vez");
 
             //Descomentar para que funcione el loop
-            //if (BehaviourTreesToRun.Count > 0)
-            //{
-            //    thread.Start();
-            //}
+            if (BehaviourTreesToRun.Count > 0 && isRunning)
+            {
+                thread.Start();
+            }
         }
 
         public void AddBehaviourTreesToRun(BehaviourTree item) 
@@ -62,7 +63,7 @@ namespace BehaviorTree {
             {
                 BehaviourTreesToRun.Add(item);
 
-                if(BehaviourTreesToRun.Count == 1)
+                if(thread != null && BehaviourTreesToRun.Count == 1)
                 {
                     thread.Start();
                 }
@@ -87,6 +88,20 @@ namespace BehaviorTree {
             thread = new Thread(new ThreadStart(SomeFunctions));
 
             thread.Start();
+        }
+
+        public void StartManager() 
+        {
+            isRunning = true;
+            if (thread != null) 
+            {
+                thread.Start();
+            }
+        }
+
+        public void StopManager() 
+        {
+            isRunning = false;
         }
 
         //Interval in seconds
