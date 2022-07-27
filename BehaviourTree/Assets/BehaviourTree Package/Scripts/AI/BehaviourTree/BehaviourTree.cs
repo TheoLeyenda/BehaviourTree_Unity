@@ -32,7 +32,7 @@ namespace BehaviorTree
             return false;
         }
 
-        protected virtual void UpdateBehaviourTree()
+        public virtual void UpdateBehaviourTree()
         {
             if (_root != null)
                 _root.Evaluate();

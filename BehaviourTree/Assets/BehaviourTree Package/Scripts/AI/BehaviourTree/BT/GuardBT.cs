@@ -135,7 +135,7 @@ public class GuardBT : BehaviourTree
     }
 
     //ESTO ES SOLO PARA TESTING SE PUEDE BORRAR.
-    protected override void UpdateBehaviourTree()
+    public override void UpdateBehaviourTree()
     {
         base.UpdateBehaviourTree();
 
