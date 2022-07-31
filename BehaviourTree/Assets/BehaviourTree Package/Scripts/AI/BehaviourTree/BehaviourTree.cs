@@ -4,17 +4,25 @@ using UnityEngine;
 
 namespace BehaviorTree
 {
+    [RequireComponent(typeof(Blackboard))]
     public abstract class BehaviourTree : MonoBehaviour
     {
         private Node _root = null;
         private bool isRunning = true;
+
+        protected Blackboard BlackboardComponent;
+
         protected virtual void Start()
         {
+            BlackboardComponent = GetComponent<Blackboard>();
+
+            InitBlackboardKeys();
+
             StartLogic();
             _root = SetupTree();
         }
 
-        public virtual void Update()
+        protected virtual void Update()
         {
             if (isRunning)
             {
@@ -22,17 +30,25 @@ namespace BehaviorTree
                     _root.Evaluate();
                 else
                 {
-                    Debug.Log("RootNull");
+                    Debug.LogError("RootNull");
                 }
+
+                UpdateBlackboardKeys();
+                BlackboardComponent.UpdateKeysData();
             }
         }
 
-        public void StartLogic() 
+        protected virtual void OnDestroy()
+        {
+            DeinitBlackboardKeys();
+        }
+
+        public void StartLogic()
         {
             isRunning = true;
         }
 
-        public void StopLogic() 
+        public void StopLogic()
         {
             isRunning = false;
         }
@@ -46,6 +62,23 @@ namespace BehaviorTree
             {
                 _root.ShowChildrens();
             }
+        }
+
+        protected virtual void InitBlackboardKeys() { }
+
+        protected virtual void UpdateBlackboardKeys() { }
+
+        protected virtual void DeinitBlackboardKeys()
+        {
+            if (BlackboardComponent != null)
+            {
+                BlackboardComponent.ClearValues();
+            }
+        }
+
+        public Blackboard GetBlackboardComponent()
+        {
+            return BlackboardComponent;
         }
     }
 }

@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: 2345188185101350381}
   - component: {fileID: 2345188185111157311}
   - component: {fileID: 2345188186670296672}
+  - component: {fileID: 971047695764770693}
   - component: {fileID: 2345188186670296673}
   - component: {fileID: 1740131963}
   m_Layer: 7
@@ -172,6 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 210998a8d162b8d46825f40f94c2419e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BlackboardComponent: {fileID: 0}
   structAnimationAI: {fileID: 2345188186670296673}
   NameDataTarget: target
   NameConditionIdleAnimation_TaskPatrol: Idle
@@ -193,12 +195,24 @@ MonoBehaviour:
   speedGoToTarget: 4
   attackRange: 1.1
   NameConditionAttackAnimation_TaskCheckEnemyInAttackRange: Attack
-  NameConditionWalkingAnimation_TaskCheckEnemyInAttackRange: CombatWalk
   attackTime: 1
   damageAttack: 10
   NameConditionWalkingAnimation_TaskAttack: CombatWalk
   intervalServiceCounter: 1
   intervalServiceNotify: 5
+--- !u!114 &971047695764770693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2345188185101773197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02d040b75a7331f4c84598b1a6ec4db0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlackboardKeysData: []
 --- !u!114 &2345188186670296673
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,6 +5,16 @@ using BehaviorTree;
 
 public class GuardBT : BehaviourTree
 {
+    [Header("Guard Settings")]
+    [SerializeField]
+    protected int Life = 100;
+    [SerializeField]
+    protected float Weight = 80.3f;
+    [SerializeField]
+    protected bool IsAlive = true;
+    [SerializeField]
+    protected char InitialBot = 'T';
+
     [Header("General Settings")]
     public StructAnimationAI structAnimationAI;
     [SerializeField]
@@ -66,6 +76,16 @@ public class GuardBT : BehaviourTree
     [SerializeField]
     protected float intervalServiceNotify;
     protected ServiceNotifiy serviceNotifiy;
+
+
+    //Keys to Blackboard.
+    private object NameValue;
+    private object LifeValue = 100;
+    private object WeightValue = 80.3f;
+    private object IsAliveValue = true;
+    private object InitialBotValue = 'T';
+    private object TransformBotValue;
+    private object PositionBotValue;
 
     protected override Node SetupTree()
     {
@@ -134,8 +154,54 @@ public class GuardBT : BehaviourTree
         structAnimationAI.SaveDefaultValues();
     }
 
-    //ESTO ES SOLO PARA TESTING SE PUEDE BORRAR.
-    public override void Update()
+    protected override void InitBlackboardKeys()
+    {
+        base.InitBlackboardKeys();
+
+        NameValue = gameObject.name;
+        LifeValue = Life;
+        WeightValue = Weight;
+        IsAliveValue = IsAlive;
+        InitialBotValue = InitialBot;
+        TransformBotValue = transform;
+        PositionBotValue = transform.position;
+
+        GetBlackboardComponent().AddValue("NameBot", NameValue);
+        GetBlackboardComponent().AddValue("Life", LifeValue);
+        GetBlackboardComponent().AddValue("Weight", WeightValue);
+        GetBlackboardComponent().AddValue("IsAlive", IsAliveValue);
+        GetBlackboardComponent().AddValue("InicialBot", InitialBotValue);
+        GetBlackboardComponent().AddValue("Transform Bot", TransformBotValue);
+        GetBlackboardComponent().AddValue("Position Bot", PositionBotValue);
+    }
+
+    protected override void UpdateBlackboardKeys()
+    {
+        base.UpdateBlackboardKeys();
+
+        NameValue = gameObject.name;
+        LifeValue = Life;
+        WeightValue = Weight;
+        IsAliveValue = IsAlive;
+        InitialBotValue = InitialBot;
+        TransformBotValue = transform;
+        PositionBotValue = transform.position;
+
+        GetBlackboardComponent().SetValue("NameBot", NameValue);
+        GetBlackboardComponent().SetValue("Life", LifeValue);
+        GetBlackboardComponent().SetValue("Weight", WeightValue);
+        GetBlackboardComponent().SetValue("IsAlive", IsAliveValue);
+        GetBlackboardComponent().SetValue("InicialBot", InitialBotValue);
+        GetBlackboardComponent().SetValue("Transform Bot", TransformBotValue);
+        GetBlackboardComponent().SetValue("Position Bot", PositionBotValue);
+    }
+
+    protected override void DeinitBlackboardKeys()
+    {
+        base.DeinitBlackboardKeys();
+    }
+
+    protected override void Update()
     {
         base.Update();
 
@@ -166,6 +232,10 @@ public class GuardBT : BehaviourTree
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
             serviceNotifiy.ActivateUpdateService();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            GetBlackboardComponent().RemoveValue("Transform Bot");
         }
     }
 }
