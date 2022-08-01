@@ -19,13 +19,16 @@ public class TaskAttack : Task
 
     private StructAnimationAI _structAnimationAI;
 
-    public TaskAttack(Transform transform, string nameData, float attackTime, float damageAttack)
+    private Blackboard _blackboardComponent;
+
+    public TaskAttack(Transform transform, string nameData, float attackTime, float damageAttack, Blackboard blackboardComponent)
     {
         _transform = transform;
         _nameData = nameData;
         _attackTime = attackTime;
         _damageAttack = damageAttack;
         TypeNode = "TaskAttack";
+        _blackboardComponent = blackboardComponent;
     }
 
     public void SetStructAnimationAI(StructAnimationAI structAnimationAI) { _structAnimationAI = structAnimationAI; }
@@ -35,7 +38,7 @@ public class TaskAttack : Task
     public override NodeState Evaluate()
     {
         base.Evaluate();
-        Transform target = (Transform)GetData(_nameData);
+        Transform target = (Transform)_blackboardComponent.GetValue(_nameData);
 
         if (target != _lastTarget)
         {
@@ -50,7 +53,7 @@ public class TaskAttack : Task
 
             if (enemyIsDead)
             {
-                ClearData(_nameData);
+                _blackboardComponent.SetValue(_nameData, null);
                 _structAnimationAI.ClearValuesAnimationSlots();
                 _structAnimationAI.SetDataAnimationSlot(_nameAnimationWalking);
             }
@@ -62,7 +65,7 @@ public class TaskAttack : Task
 
         if (target == null || !_enemyHealthComponent) 
         {
-            ClearData(_nameData);
+            _blackboardComponent.SetValue(_nameData, null);
             _structAnimationAI.ClearValuesAnimationSlots();
             _structAnimationAI.SetDataAnimationSlot(_nameAnimationWalking);
         }

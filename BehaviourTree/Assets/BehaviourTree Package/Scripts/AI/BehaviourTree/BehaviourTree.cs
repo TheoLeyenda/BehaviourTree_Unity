@@ -8,13 +8,13 @@ namespace BehaviorTree
     public abstract class BehaviourTree : MonoBehaviour
     {
         private Node _root = null;
-        private bool isRunning = true;
+        private bool _isRunning = true;
 
-        protected Blackboard BlackboardComponent;
+        protected Blackboard _blackboardComponent;
 
         protected virtual void Start()
         {
-            BlackboardComponent = GetComponent<Blackboard>();
+            _blackboardComponent = GetComponent<Blackboard>();
 
             InitBlackboardKeys();
 
@@ -24,7 +24,7 @@ namespace BehaviorTree
 
         protected virtual void Update()
         {
-            if (isRunning)
+            if (_isRunning)
             {
                 if (_root != null)
                     _root.Evaluate();
@@ -34,7 +34,7 @@ namespace BehaviorTree
                 }
 
                 UpdateBlackboardKeys();
-                BlackboardComponent.UpdateKeysData();
+                _blackboardComponent.UpdateKeysData();
             }
         }
 
@@ -45,12 +45,12 @@ namespace BehaviorTree
 
         public void StartLogic()
         {
-            isRunning = true;
+            _isRunning = true;
         }
 
         public void StopLogic()
         {
-            isRunning = false;
+            _isRunning = false;
         }
 
         protected abstract Node SetupTree();
@@ -70,15 +70,15 @@ namespace BehaviorTree
 
         protected virtual void DeinitBlackboardKeys()
         {
-            if (BlackboardComponent != null)
+            if (_blackboardComponent != null)
             {
-                BlackboardComponent.ClearValues();
+                _blackboardComponent.ClearValues();
             }
         }
 
         public Blackboard GetBlackboardComponent()
         {
-            return BlackboardComponent;
+            return _blackboardComponent;
         }
     }
 }

@@ -96,17 +96,17 @@ public class GuardBT : BehaviourTree
         taskPatrol.SetNameWalkingAnimation(NameConditionWalkingAnimation_TaskPatrol);
         taskPatrol.SetStructAnimationAI(structAnimationAI);
 
-        taskCheckEnemyInFOVRange = new CheckEnemyInFOVRange(transform, EnemyLayerMask.value, _fovRange, null, NameDataTarget);
+        taskCheckEnemyInFOVRange = new CheckEnemyInFOVRange(transform, EnemyLayerMask.value, _fovRange, null, NameDataTarget, _blackboardComponent);
         taskCheckEnemyInFOVRange.SetNameWalkingAnimation(NameConditionWalkingAnimation_TaskCheckEnemyInFOVRange);
         taskCheckEnemyInFOVRange.SetStructAnimationAI(structAnimationAI);
 
-        taskGoToTarget = new TaskGoToTarget(transform, DistanceToTarget, speedGoToTarget, NameDataTarget);
+        taskGoToTarget = new TaskGoToTarget(transform, DistanceToTarget, speedGoToTarget, NameDataTarget, _blackboardComponent);
 
-        taskCheckEnemyInAttackRange = new CheckEnemyInAttackRange(transform, NameDataTarget, attackRange);
+        taskCheckEnemyInAttackRange = new CheckEnemyInAttackRange(transform, NameDataTarget, attackRange, _blackboardComponent);
         taskCheckEnemyInAttackRange.SetNameAnimationAttack(NameConditionAttackAnimation_TaskCheckEnemyInAttackRange);
         taskCheckEnemyInAttackRange.SetStructAnimationAI(structAnimationAI);
 
-        taskAttack = new TaskAttack(transform, NameDataTarget, attackTime, damageAttack);
+        taskAttack = new TaskAttack(transform, NameDataTarget, attackTime, damageAttack, _blackboardComponent);
         taskAttack.SetNameAnimationWalking(NameConditionWalkingAnimation_TaskAttack);
         taskAttack.SetStructAnimationAI(structAnimationAI);
 
@@ -173,6 +173,8 @@ public class GuardBT : BehaviourTree
         GetBlackboardComponent().AddValue("InicialBot", InitialBotValue);
         GetBlackboardComponent().AddValue("Transform Bot", TransformBotValue);
         GetBlackboardComponent().AddValue("Position Bot", PositionBotValue);
+
+        GetBlackboardComponent().AddValue(NameDataTarget, null);
     }
 
     protected override void UpdateBlackboardKeys()

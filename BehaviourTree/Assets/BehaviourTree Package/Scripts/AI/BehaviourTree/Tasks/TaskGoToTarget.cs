@@ -8,19 +8,16 @@ public class TaskGoToTarget : Task
     private float _distanceToTarget;
     private float _speed;
     private string _nameDataTarget;
-    public TaskGoToTarget(Transform transform, float distanceToTarget, float speed, string nameDataTarget)
+    private Blackboard _blackboardComponent;
+
+    public TaskGoToTarget(Transform transform, float distanceToTarget, float speed, string nameDataTarget, Blackboard blackboardComponent)
     {
         _transform = transform;
         _distanceToTarget = distanceToTarget;
         _speed = speed;
         _nameDataTarget = nameDataTarget;
         TypeNode = "TaskGoToTarget";
-    }
-
-    public TaskGoToTarget(Transform transform)
-    {
-        _transform = transform;
-        TypeNode = "TaskGoToTarget";
+        _blackboardComponent = blackboardComponent;
     }
 
     public void SetDistanceToTarget(float distanceToTarget) => _distanceToTarget = distanceToTarget;
@@ -28,7 +25,7 @@ public class TaskGoToTarget : Task
     public override NodeState Evaluate()
     {
         base.Evaluate();
-        Transform target = (Transform)GetData(_nameDataTarget);
+        Transform target = (Transform)_blackboardComponent.GetValue(_nameDataTarget);
         if (target)
         {
             if (Vector3.Distance(_transform.position, target.position) > _distanceToTarget)

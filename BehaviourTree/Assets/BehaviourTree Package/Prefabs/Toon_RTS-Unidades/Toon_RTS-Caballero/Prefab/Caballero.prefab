@@ -173,9 +173,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 210998a8d162b8d46825f40f94c2419e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlackboardComponent: {fileID: 0}
+  Life: 100
+  Weight: 80.3
+  IsAlive: 1
+  InitialBot: 84
   structAnimationAI: {fileID: 2345188186670296673}
-  NameDataTarget: target
+  NameDataTarget: Target
   NameConditionIdleAnimation_TaskPatrol: Idle
   NameConditionWalkingAnimation_TaskPatrol: CombatWalk
   SpeedPatrol: 2

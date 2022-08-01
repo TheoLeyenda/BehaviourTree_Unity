@@ -10,13 +10,15 @@ public class CheckEnemyInAttackRange : Task
     private string _nameData;
     private string _nameAnimationAttack;
     private StructAnimationAI _structAnimationAI;
+    private Blackboard _blackboardComponent;
 
-    public CheckEnemyInAttackRange(Transform transform, string nameData, float attackRange)
+    public CheckEnemyInAttackRange(Transform transform, string nameData, float attackRange, Blackboard blackboardComponent)
     {
         _transform = transform;
         _nameData = nameData;
         _attackRange = attackRange;
         TypeNode = "CheckEnemyInAttackRange";
+        _blackboardComponent = blackboardComponent;
     }
 
     public void SetStructAnimationAI(StructAnimationAI structAnimationAI) { _structAnimationAI = structAnimationAI; }
@@ -25,7 +27,10 @@ public class CheckEnemyInAttackRange : Task
     public override NodeState Evaluate()
     {
         base.Evaluate();
-        object t = GetData(_nameData);
+
+        if (!_blackboardComponent) return NodeState.FAILURE;
+
+        object t = _blackboardComponent.GetValue(_nameData);
         if (t == null)
         {
             state = NodeState.FAILURE;

@@ -12,6 +12,7 @@ public class CheckEnemyInFOVRange : Task
     private StructAnimationAI _structAnimationAI;
     private string _nameDataTarget;
     private string _nameWalkingAnimation;
+    private Blackboard _blackboardComponent;
 
     public void SetStructAnimationAI(StructAnimationAI newStructAnimationAI) { _structAnimationAI = newStructAnimationAI; }
 
@@ -19,7 +20,7 @@ public class CheckEnemyInFOVRange : Task
 
     public void SetAnimator(Animator animator) { _animator = animator; }
 
-    public CheckEnemyInFOVRange(Transform transform, int enemyLayerMask, float fovRange, Node rootNode, string nameDataTarget)
+    public CheckEnemyInFOVRange(Transform transform, int enemyLayerMask, float fovRange, Node rootNode, string nameDataTarget, Blackboard blackboardComponent)
     {
         _transform = transform;
         _enemyLayerMask = enemyLayerMask;
@@ -31,6 +32,7 @@ public class CheckEnemyInFOVRange : Task
             _animator = _transform.GetComponent<Animator>();
         }
         TypeNode = "CheckEnemyInFOVRange";
+        _blackboardComponent = blackboardComponent;
     }
 
     public void SetRootNode(Node node) => _rootNode = node;
@@ -38,7 +40,7 @@ public class CheckEnemyInFOVRange : Task
     public override NodeState Evaluate()
     {
         base.Evaluate();
-        object t = GetData(_nameDataTarget);
+        object t = _blackboardComponent.GetValue(_nameDataTarget);
         if (t == null)
         {
             Collider[] colliders = Physics.OverlapSphere(_transform.position, _fovRange, _enemyLayerMask);
@@ -47,8 +49,8 @@ public class CheckEnemyInFOVRange : Task
             {
                 if (_rootNode != null)
                 {
-                    _rootNode.SetData(_nameDataTarget, colliders[0].transform);
-                    Debug.Log(colliders[0].transform.name);
+                    _blackboardComponent.SetValue(_nameDataTarget, colliders[0].transform);
+
                     if (_animator && _structAnimationAI)
                     {
                         _structAnimationAI.ClearValuesAnimationSlots();
