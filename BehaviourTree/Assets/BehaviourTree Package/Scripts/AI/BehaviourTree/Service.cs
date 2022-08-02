@@ -11,9 +11,13 @@ namespace BehaviorTree
 
         //En el FixedUpdate se ejecuta el "TickNode"
 
-        [Header("Settings Service")]
         protected float _interval = 0.5f;
         private bool _useUpdate = true;
+
+        protected virtual void Start()
+        {
+            hideFlags = HideFlags.HideInInspector;
+        }
 
         public void SetInterval(float interval)
         {

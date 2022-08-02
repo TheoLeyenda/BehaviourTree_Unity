@@ -8,7 +8,8 @@ namespace BehaviorTree
     {
         RUNNING,
         SUCCESSE,
-        FAILURE
+        FAILURE,
+        ABORT
     }
     public class Node
     {
@@ -17,7 +18,7 @@ namespace BehaviorTree
         public Node parent;
         protected List<Node> childrens = new List<Node>();
         protected List<Service> services = new List<Service>();
-
+        protected List<Decorator> decorators = new List<Decorator>();
         public Node()
         {
             parent = null;
@@ -57,6 +58,7 @@ namespace BehaviorTree
 
         public virtual NodeState Evaluate()
         {
+            
             for (int i = 0; i < services.Count; i++)
             {
                 if (services[i] != null)

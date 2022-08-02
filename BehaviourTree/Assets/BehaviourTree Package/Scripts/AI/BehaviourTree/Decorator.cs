@@ -2,17 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Decorator : MonoBehaviour
+namespace BehaviorTree 
 {
-    // Start is called before the first frame update
-    void Start()
+    public enum EResultDecorator 
     {
-        
+        CONTINUE,
+        LOOP,
+        WAIT,
+        ABORT,
     }
 
-    // Update is called once per frame
-    void Update()
+    public class Decorator : MonoBehaviour
     {
-        
+        protected virtual void Start()
+        {
+            hideFlags = HideFlags.HideInInspector;
+        }
+        public Decorator() {}
+
+        public virtual EResultDecorator CheckDecorator() 
+        {
+            return EResultDecorator.CONTINUE;
+        }
     }
 }
