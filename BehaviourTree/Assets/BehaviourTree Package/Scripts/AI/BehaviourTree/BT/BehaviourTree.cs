@@ -7,7 +7,7 @@ namespace BehaviorTree
     [RequireComponent(typeof(Blackboard))]
     public abstract class BehaviourTree : MonoBehaviour
     {
-        private Node _root = null;
+        private Root _root = null;
         private bool _isRunning = true;
 
         protected Blackboard _blackboardComponent;
@@ -53,7 +53,7 @@ namespace BehaviorTree
             _isRunning = false;
         }
 
-        protected abstract Node SetupTree();
+        protected abstract Root SetupTree();
 
         public void ShowTree()
         {

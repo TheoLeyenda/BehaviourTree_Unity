@@ -74,6 +74,7 @@
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Services\ServiceNotifiy.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Services\Service.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Tasks\TaskGoToTarget.cs" />
+    <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Root.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

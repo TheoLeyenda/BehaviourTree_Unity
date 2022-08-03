@@ -87,7 +87,7 @@ public class GuardBT : BehaviourTree
     private object TransformBotValue;
     private object PositionBotValue;
 
-    protected override Node SetupTree()
+    protected override Root SetupTree()
     {
         animator = GetComponent<Animator>();
 
@@ -134,12 +134,14 @@ public class GuardBT : BehaviourTree
             taskGoToTarget,
         });
 
-        Node root = new Selector(new List<Node>
+        Selector compositeRoot = new Selector(new List<Node>
         {
             sequenceCheckEnemyInAttackRange,
             sequenceCheckEnemyInFOVRange,
             taskPatrol,
         });
+
+        Root root = new Root(compositeRoot);
 
         taskCheckEnemyInFOVRange.SetRootNode(root);
 

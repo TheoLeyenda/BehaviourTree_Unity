@@ -35,7 +35,7 @@ public class CheckEnemyInFOVRange : Task
         _blackboardComponent = blackboardComponent;
     }
 
-    public void SetRootNode(Node node) => _rootNode = node;
+    public void SetRootNode(Root node) => _rootNode = node;
 
     public override NodeState Evaluate()
     {

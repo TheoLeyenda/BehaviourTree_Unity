@@ -9,7 +9,6 @@ namespace BehaviorTree
         RUNNING,
         SUCCESSE,
         FAILURE,
-        LOOP,
     }
     public class Node
     {
