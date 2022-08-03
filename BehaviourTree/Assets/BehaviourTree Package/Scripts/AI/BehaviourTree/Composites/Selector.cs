@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace BehaviorTree
 {
-    public class Selector : Node
+    public class Selector : Composite
     {
         public Selector() : base()
         {

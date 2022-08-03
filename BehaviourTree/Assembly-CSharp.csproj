@@ -56,25 +56,24 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Blackboard.cs" />
-    <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Task.cs" />
+    <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Blackboards\Blackboard.cs" />
+    <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Tasks\Task.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\BT\GuardBT.cs" />
-    <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\BehaviourTree.cs" />
+    <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\BT\BehaviourTree.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Tasks\TaskPatrol.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Tasks\CheckEnemyInFOVRange.cs" />
+    <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Composites\Composite.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\HealthComponent.cs" />
-    <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Decorator.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Services\ServiceCounter.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Structs\StructAnimationAI.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Tasks\CheckEnemyInAttackRange.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Tasks\TaskAttack.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Node.cs" />
-    <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Selector.cs" />
-    <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Sequence.cs" />
+    <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Composites\Selector.cs" />
+    <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Composites\Sequence.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Services\ServiceNotifiy.cs" />
-    <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Service.cs" />
+    <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Services\Service.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Tasks\TaskGoToTarget.cs" />
-    <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Decorators\BlackboardDecorator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
