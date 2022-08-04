@@ -35,9 +35,9 @@ public class TaskAttack : Task
 
     public void SetNameAnimationWalking(string nameAnimationWalking) { _nameAnimationWalking = nameAnimationWalking; }
 
-    public override NodeState Evaluate()
+    protected override NodeState ExecuteNode()
     {
-        base.Evaluate();
+        base.ExecuteNode();
         Transform target = (Transform)_blackboardComponent.GetValue(_nameData);
 
         if (target != _lastTarget)

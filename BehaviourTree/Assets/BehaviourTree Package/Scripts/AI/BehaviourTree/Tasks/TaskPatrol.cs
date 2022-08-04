@@ -57,9 +57,9 @@ public class TaskPatrol : Task
 
     public void SetDistanceToWaypoint(float distanceToWaypoint) => _distanceToWaypoint = distanceToWaypoint;
 
-    public override NodeState Evaluate()
+    protected override NodeState ExecuteNode()
     {
-        base.Evaluate();
+        base.ExecuteNode();
         if (_waiting)
         {
             _waitCounter += Time.deltaTime;

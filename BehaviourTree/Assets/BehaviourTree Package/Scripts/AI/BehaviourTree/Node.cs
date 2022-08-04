@@ -10,6 +10,14 @@ namespace BehaviorTree
         SUCCESSE,
         FAILURE,
     }
+    public enum EAbortType
+    {
+        None,
+        AbortSelf,
+        AbortBoth,
+        AbortLowerPriorirty,
+    }
+
     public class Node
     {
         protected NodeState state;
@@ -17,6 +25,8 @@ namespace BehaviorTree
         public Node parent;
         protected List<Node> childrens = new List<Node>();
         protected List<Service> services = new List<Service>();
+        protected List<Decorator> decorators = new List<Decorator>();
+        protected EAbortType _abortType = EAbortType.None;
         public Node()
         {
             parent = null;
@@ -54,21 +64,71 @@ namespace BehaviorTree
             childrens.Add(node);
         }
 
-        public virtual NodeState Evaluate()
+        public bool CheckDecorators() 
         {
-            
+            for(int i = 0; i < decorators.Count; i++) 
+            {
+                if (!decorators[i].CheckDecorator())
+                    return false;
+            }
+            return true;
+        }
+
+        protected virtual NodeState ExecuteNode() 
+        {
             for (int i = 0; i < services.Count; i++)
             {
                 if (services[i] != null)
                 {
-                    Debug.Log(TypeNode);
                     services[i].OnBecomeRelevant();
                 }
+            }
+            if (GetTypeNode() == "Selector")
+            {
+                return NodeState.FAILURE;
+            }
+            else 
+            {
+                return NodeState.SUCCESSE;
+            }
+        }
+
+        public virtual NodeState Evaluate()
+        {
+            if (CheckDecorators())
+            {
+                return ExecuteNode();
             }
             return NodeState.FAILURE;
         }
 
         public string GetTypeNode() { return TypeNode; }
+
+        public void AddDecorator(Decorator decorator) 
+        {
+            decorators.Add(decorator);
+        }
+
+        public void RemoveDecorator(Decorator decorator) 
+        {
+            decorators.Remove(decorator);
+            UnityEngine.GameObject.Destroy(decorator);
+        }
+
+        public void ClearAllDecorators() 
+        {
+            List<Decorator> auxList = new List<Decorator>();
+            for (int i = 0; i < decorators.Count; i++)
+            {
+                auxList.Add(decorators[i]);
+            }
+            for (int i = 0; i < auxList.Count; i++)
+            {
+                RemoveDecorator(auxList[i]);
+            }
+            auxList.Clear();
+            decorators.Clear();
+        }
 
         public void AddService(Service NewService)
         {
@@ -98,12 +158,22 @@ namespace BehaviorTree
 
         public void ShowCountServices()
         {
-            Debug.Log("Services Count: "+services.Count);
+            Debug.Log("Services Count: " + services.Count);
         }
 
-        public void SetState(NodeState newState) 
+        public void SetState(NodeState nodeState) 
         {
-            state = newState;
+            state = nodeState;
+        }
+
+        public void SetAbortType(EAbortType abortType)
+        {
+            _abortType = abortType;
+        }
+
+        public EAbortType GetAbortType() 
+        {
+            return _abortType;
         }
     }
 }

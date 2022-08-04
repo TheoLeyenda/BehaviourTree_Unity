@@ -7,7 +7,7 @@ namespace BehaviorTree
     [RequireComponent(typeof(Blackboard))]
     public abstract class BehaviourTree : MonoBehaviour
     {
-        private Root _root = null;
+        protected Root _root = null;
         private bool _isRunning = true;
 
         protected Blackboard _blackboardComponent;
@@ -74,6 +74,11 @@ namespace BehaviorTree
             {
                 _blackboardComponent.ClearValues();
             }
+        }
+
+        public void ResetTree() 
+        {
+            _root.GetComposite().SetAbortType(EAbortType.AbortBoth);
         }
 
         public Blackboard GetBlackboardComponent()

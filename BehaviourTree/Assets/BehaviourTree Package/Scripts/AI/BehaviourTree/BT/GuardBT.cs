@@ -87,6 +87,17 @@ public class GuardBT : BehaviourTree
     private object TransformBotValue;
     private object PositionBotValue;
 
+
+    [Header("EnableAttackDecorator Settings")]
+    [SerializeField]
+    protected BlackboardDecorator.ETypeNotifyObserver EnableAttacktypeNotifyObserver;
+    [SerializeField]
+    protected ETypeObserverAbort EnableAttacktypeObserverAbort;
+    [SerializeField]
+    protected string EnableAttackKey;
+    [SerializeField]
+    protected BlackboardDecorator.EKeyQuery EnableAttackkeyQuery;
+
     protected override Root SetupTree()
     {
         animator = GetComponent<Animator>();
@@ -128,11 +139,22 @@ public class GuardBT : BehaviourTree
             taskAttack,
         });
 
+        BlackboardDecorator enableAttackDecorator = new BlackboardDecorator(sequenceCheckEnemyInAttackRange
+            , EnableAttacktypeNotifyObserver
+            , EnableAttacktypeObserverAbort
+            , EnableAttackKey
+            , EnableAttackkeyQuery
+            , _blackboardComponent);
+
+        sequenceCheckEnemyInAttackRange.AddDecorator(enableAttackDecorator);
+
         Sequence sequenceCheckEnemyInFOVRange = new Sequence(new List<Node>
         {
             taskCheckEnemyInFOVRange,
             taskGoToTarget,
         });
+
+        sequenceCheckEnemyInAttackRange.AddDecorator(enableAttackDecorator);
 
         Selector compositeRoot = new Selector(new List<Node>
         {
@@ -175,8 +197,9 @@ public class GuardBT : BehaviourTree
         GetBlackboardComponent().AddValue("InicialBot", InitialBotValue);
         GetBlackboardComponent().AddValue("Transform Bot", TransformBotValue);
         GetBlackboardComponent().AddValue("Position Bot", PositionBotValue);
-
         GetBlackboardComponent().AddValue(NameDataTarget, null);
+
+        GetBlackboardComponent().AddValue(EnableAttackKey, true);
     }
 
     protected override void UpdateBlackboardKeys()
@@ -209,37 +232,14 @@ public class GuardBT : BehaviourTree
     {
         base.Update();
 
-        if (Input.GetKeyDown(KeyCode.Alpha0))
+        if (Input.GetKeyDown(KeyCode.Alpha8))
         {
-            taskAttack.RemoveService(serviceNotifiy);
+            GetBlackboardComponent().SetValue(EnableAttackKey, true);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha9)) 
         {
-            taskAttack.RemoveService(serviceCounter);
+            GetBlackboardComponent().SetValue(EnableAttackKey, false);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            taskAttack.ClearAllServices();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            serviceCounter.DisableUpdateService();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            serviceCounter.ActivateUpdateService();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            serviceNotifiy.DisableUpdateService();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            serviceNotifiy.ActivateUpdateService();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            GetBlackboardComponent().RemoveValue("Transform Bot");
-        }
+        
     }
 }

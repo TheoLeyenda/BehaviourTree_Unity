@@ -37,9 +37,9 @@ public class CheckEnemyInFOVRange : Task
 
     public void SetRootNode(Root node) => _rootNode = node;
 
-    public override NodeState Evaluate()
+    protected override NodeState ExecuteNode()
     {
-        base.Evaluate();
+        base.ExecuteNode();
         object t = _blackboardComponent.GetValue(_nameDataTarget);
         if (t == null)
         {

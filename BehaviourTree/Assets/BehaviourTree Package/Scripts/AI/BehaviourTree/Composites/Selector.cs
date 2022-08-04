@@ -15,24 +15,52 @@ namespace BehaviorTree
             TypeNode = "Selector";
         }
 
-        public override NodeState Evaluate()
+        protected override NodeState ExecuteNode()
         {
-            base.Evaluate();
-            foreach (Node node in childrens)
+            base.ExecuteNode();
+            for (int i = 0; i < childrens.Count; i++)
             {
-                switch (node.Evaluate())
+                if (_abortType == EAbortType.AbortBoth)
                 {
-                    case NodeState.FAILURE:
-                        continue;
-                    case NodeState.SUCCESSE:
-                        state = NodeState.SUCCESSE;
-                        return state;
-                    case NodeState.RUNNING:
-                        state = NodeState.RUNNING;
-                        return state;
-                    default:
-                        continue;
+                    i = 0;
+                    _abortType = EAbortType.None;
                 }
+                else if (_abortType == EAbortType.AbortSelf)
+                {
+                    _abortType = EAbortType.None;
+                    i = childrens.Count - 1;
+                    continue;
+                }
+                else if (_abortType == EAbortType.AbortLowerPriorirty)
+                {
+                    state = childrens[i].Evaluate();
+                    i = childrens.Count;
+                    _abortType = EAbortType.None;
+                    return state;
+                }
+                if (childrens[i].GetAbortType() == EAbortType.AbortSelf)
+                {
+                    childrens[i].SetAbortType(EAbortType.None);
+                    childrens[i].SetState(NodeState.SUCCESSE);
+                    continue;
+                }
+                else
+                {
+                    switch (childrens[i].Evaluate())
+                    {
+                        case NodeState.FAILURE:
+                            continue;
+                        case NodeState.SUCCESSE:
+                            state = NodeState.SUCCESSE;
+                            return state;
+                        case NodeState.RUNNING:
+                            state = NodeState.RUNNING;
+                            return state;
+                        default:
+                            continue;
+                    }
+                }
+                
             }
             state = NodeState.FAILURE;
             return state;

@@ -24,9 +24,9 @@ public class CheckEnemyInAttackRange : Task
     public void SetStructAnimationAI(StructAnimationAI structAnimationAI) { _structAnimationAI = structAnimationAI; }
 
     public void SetNameAnimationAttack(string nameAnimationAttack) { _nameAnimationAttack = nameAnimationAttack; }
-    public override NodeState Evaluate()
+    protected override NodeState ExecuteNode()
     {
-        base.Evaluate();
+        base.ExecuteNode();
 
         if (!_blackboardComponent) return NodeState.FAILURE;
 

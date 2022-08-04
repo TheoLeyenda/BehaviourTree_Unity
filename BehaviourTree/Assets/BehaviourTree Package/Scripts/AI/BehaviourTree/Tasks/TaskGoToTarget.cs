@@ -22,9 +22,9 @@ public class TaskGoToTarget : Task
 
     public void SetDistanceToTarget(float distanceToTarget) => _distanceToTarget = distanceToTarget;
 
-    public override NodeState Evaluate()
+    protected override NodeState ExecuteNode()
     {
-        base.Evaluate();
+        base.ExecuteNode();
         Transform target = (Transform)_blackboardComponent.GetValue(_nameDataTarget);
         if (target)
         {

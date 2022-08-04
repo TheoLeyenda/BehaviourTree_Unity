@@ -203,6 +203,10 @@ MonoBehaviour:
   NameConditionWalkingAnimation_TaskAttack: CombatWalk
   intervalServiceCounter: 1
   intervalServiceNotify: 5
+  EnableAttacktypeNotifyObserver: 0
+  EnableAttacktypeObserverAbort: 1
+  EnableAttackKey: EnableAttack
+  EnableAttackkeyQuery: 1
 --- !u!114 &971047695764770693
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,10 +14,5 @@ namespace BehaviorTree
         {
             TypeNode = "Composite";
         }
-
-        protected virtual NodeState EvaluateComposite() 
-        {
-            return NodeState.SUCCESSE;
-        }
     }
 }
