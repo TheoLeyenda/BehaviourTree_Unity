@@ -180,5 +180,7 @@ namespace BehaviorTree
         {
             return _abortType;
         }
+
+        public List<Node> GetChildrens() { return childrens; }
     }
 }

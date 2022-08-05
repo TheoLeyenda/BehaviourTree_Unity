@@ -13,6 +13,7 @@ public class DebugLogTask : Task
         _debugLogMessage = debugLogMessage;
         _resetTreeKey = resetTreeKey;
         _blackboard = blackboard;
+        TypeNode = "DebugLogTask";
     }
 
     protected override NodeState ExecuteNode()

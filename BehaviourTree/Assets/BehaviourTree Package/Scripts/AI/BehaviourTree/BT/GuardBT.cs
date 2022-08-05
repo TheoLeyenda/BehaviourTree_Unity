@@ -188,13 +188,13 @@ public class GuardBT : BehaviourTree
             taskGoToTarget,
         });
 
+        sequenceCheckEnemyInFOVRange.AddDecorator(sequenceCheckEnemyInFOVRangeDecorator);
+
         Sequence sequencePatrol = new Sequence(new List<Node>
         {
             taskPatrol,
             checkWalkOrIdleAnimationTask,
         });
-
-        sequenceCheckEnemyInFOVRange.AddDecorator(sequenceCheckEnemyInFOVRangeDecorator);
 
         Selector compositeRoot = new Selector(new List<Node>
         {
@@ -207,6 +207,8 @@ public class GuardBT : BehaviourTree
         Root root = new Root(compositeRoot);
 
         taskCheckEnemyInFOVRange.SetRootNode(root);
+
+        root.ShowNodesRoot();
 
         return root;
     }

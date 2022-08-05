@@ -11,6 +11,7 @@ public class ClearTargetTask : Task
     {
         _blackboard = blackboard;
         _targetKey = targetKey;
+        TypeNode = "ClearTargetTask";
     }
 
     protected override NodeState ExecuteNode()

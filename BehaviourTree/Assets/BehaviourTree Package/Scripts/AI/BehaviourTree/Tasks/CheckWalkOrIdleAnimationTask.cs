@@ -21,6 +21,7 @@ public class CheckWalkOrIdleAnimationTask : Task
         _isWalkingKey = isWalkingKey;
         _isIdleKey = isIdleKey;
         _enableCheckWalkOrIdleAnimationKey = enableCheckWalkOrIdleAnimationKey;
+        TypeNode = "CheckWalkOrIdleAnimationTask";
     }
 
     protected override NodeState ExecuteNode()

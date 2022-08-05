@@ -11,10 +11,11 @@ public class ClearIsWaitingTask : Task
     {
         _blackboard = blackboard;
         _isWaitingKey = isWaitingKey;
+        TypeNode = "ClearIsWaitingTask";
     }
     protected override NodeState ExecuteNode()
     {
-        if (!_blackboard || !(bool)_blackboard.GetValue(_isWaitingKey)) 
+        if (!_blackboard) 
             return NodeState.FAILURE;
 
         _blackboard.ClearValue(_isWaitingKey);
