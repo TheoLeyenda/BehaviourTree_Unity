@@ -83,14 +83,7 @@ namespace BehaviorTree
                     services[i].OnBecomeRelevant();
                 }
             }
-            if (GetTypeNode() == "Selector")
-            {
-                return NodeState.FAILURE;
-            }
-            else 
-            {
-                return NodeState.SUCCESSE;
-            }
+            return CheckReturnNodeState();
         }
 
         public virtual NodeState Evaluate()
@@ -99,18 +92,30 @@ namespace BehaviorTree
             {
                 return ExecuteNode();
             }
-            return NodeState.FAILURE;
+            return CheckReturnNodeState();
         }
-
+        protected NodeState CheckReturnNodeState() 
+        {
+            if (parent != null && parent.GetTypeNode() == "Selector")
+            {
+                return NodeState.FAILURE;
+            }
+            else
+            {
+                return NodeState.SUCCESSE;
+            }
+        }
         public string GetTypeNode() { return TypeNode; }
 
         public void AddDecorator(Decorator decorator) 
         {
+            decorator.SetNodeDecorator(this);
             decorators.Add(decorator);
         }
 
         public void RemoveDecorator(Decorator decorator) 
         {
+            decorator.SetNodeDecorator(null);
             decorators.Remove(decorator);
             UnityEngine.GameObject.Destroy(decorator);
         }

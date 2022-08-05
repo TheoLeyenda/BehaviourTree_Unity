@@ -22,7 +22,7 @@ public class BlackboardDecorator : Decorator
         OnChangeResult, //cuando el valor cambia.
     }
 
-    public BlackboardDecorator(Node nodeDecorator, ETypeNotifyObserver typeNotifyObserver, ETypeObserverAbort typeObserverAbort, string blackboardKey, EKeyQuery keyQuery, Blackboard blackboard): base (nodeDecorator)
+    public BlackboardDecorator(ETypeNotifyObserver typeNotifyObserver, ETypeObserverAbort typeObserverAbort, string blackboardKey, EKeyQuery keyQuery, Blackboard blackboard)
     {
         _typeNotifyObserver = typeNotifyObserver;
         _typeObserverAbort = typeObserverAbort;

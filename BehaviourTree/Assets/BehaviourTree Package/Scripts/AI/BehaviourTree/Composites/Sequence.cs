@@ -19,26 +19,27 @@ namespace BehaviorTree
         {
             base.ExecuteNode();
             bool anyChildIsRunning = false;
-            for(int i = 0; i < childrens.Count; i++) 
+
+            if (_abortType == EAbortType.AbortSelf)
             {
-                if (_abortType == EAbortType.AbortBoth)
+                return CheckReturnNodeState();
+            }
+
+            for (int i = 0; i < childrens.Count; i++) 
+            {
+                /*if (_abortType == EAbortType.AbortBoth)
                 {
                     i = 0;
                     _abortType = EAbortType.None;
-                }
-                else if (_abortType == EAbortType.AbortSelf)
-                {
-                    _abortType = EAbortType.None;
-                    i = childrens.Count - 1;
-                    continue;
-                }
-                else if (_abortType == EAbortType.AbortLowerPriorirty)
+                }*/
+
+                /*else if (_abortType == EAbortType.AbortLowerPriorirty)
                 {
                     state = childrens[i].Evaluate();
                     i = childrens.Count;
                     _abortType = EAbortType.None;
                     return state;
-                }
+                }*/
                 if (childrens[i].GetAbortType() == EAbortType.AbortSelf)
                 {
                     childrens[i].SetAbortType(EAbortType.None);

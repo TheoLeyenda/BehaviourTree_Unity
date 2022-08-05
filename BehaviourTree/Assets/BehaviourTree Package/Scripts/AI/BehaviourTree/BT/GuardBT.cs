@@ -19,13 +19,23 @@ public class GuardBT : BehaviourTree
     public StructAnimationAI structAnimationAI;
     [SerializeField]
     protected string NameDataTarget = "target";
+    [SerializeField]
+    protected string NameConditionIdleAnimation;
+    [SerializeField]
+    protected string NameConditionWalkingAnimation;
+    [SerializeField]
+    protected string NameConditionChargeAnimation;
+    [SerializeField]
+    protected string NameConditionAttackAnimation;
+    [SerializeField]
+    protected string IsMovementKey = "IsWalking";
+    [SerializeField]
+    protected string IsIdleKey = "IsIdle";
+    [SerializeField]
+    protected string EnableCheckWalkOrIdleAnimationKey = "EnableCheckWalkOrIdleAnimation";
     private Animator animator;
 
     [Header("Task Patrol Settings")]
-    [SerializeField]
-    protected string NameConditionIdleAnimation_TaskPatrol;
-    [SerializeField]
-    protected string NameConditionWalkingAnimation_TaskPatrol;
     [SerializeField]
     protected float SpeedPatrol = 2.0f;
     [SerializeField]
@@ -36,8 +46,6 @@ public class GuardBT : BehaviourTree
     protected TaskPatrol taskPatrol;
 
     [Header("Task Check Enemy In Fov Range Settings")]
-    [SerializeField]
-    protected string NameConditionWalkingAnimation_TaskCheckEnemyInFOVRange;
     [SerializeField]
     protected LayerMask EnemyLayerMask;
     [SerializeField]
@@ -54,8 +62,6 @@ public class GuardBT : BehaviourTree
     [Header("Task Check Enemy In Attack Range")]
     [SerializeField]
     protected float attackRange;
-    [SerializeField]
-    protected string NameConditionAttackAnimation_TaskCheckEnemyInAttackRange;
     protected CheckEnemyInAttackRange taskCheckEnemyInAttackRange;
 
     [Header("Task Attack")]
@@ -63,8 +69,6 @@ public class GuardBT : BehaviourTree
     protected float attackTime;
     [SerializeField]
     protected float damageAttack;
-    [SerializeField]
-    protected string NameConditionWalkingAnimation_TaskAttack;
     protected TaskAttack taskAttack;
 
     [Header("Service Counter")]
@@ -77,6 +81,7 @@ public class GuardBT : BehaviourTree
     protected float intervalServiceNotify;
     protected ServiceNotifiy serviceNotifiy;
 
+    protected CheckWalkOrIdleAnimationTask checkWalkOrIdleAnimationTask;
 
     //Keys to Blackboard.
     private object NameValue;
@@ -86,7 +91,9 @@ public class GuardBT : BehaviourTree
     private object InitialBotValue = 'T';
     private object TransformBotValue;
     private object PositionBotValue;
-
+    private object IsMovement = false;
+    private object IsIdle = false;
+    private object EnableCheckWalkOrIdleAnimation = false;
 
     [Header("EnableAttackDecorator Settings")]
     [SerializeField]
@@ -102,36 +109,45 @@ public class GuardBT : BehaviourTree
     {
         animator = GetComponent<Animator>();
 
-        taskPatrol = new TaskPatrol(transform, waypoints, SpeedPatrol, WaitingInPatrol, DistanceToWaypoint);
-        taskPatrol.SetNameIdleAnimation(NameConditionIdleAnimation_TaskPatrol);
-        taskPatrol.SetNameWalkingAnimation(NameConditionWalkingAnimation_TaskPatrol);
+        taskPatrol = new TaskPatrol(transform, waypoints, SpeedPatrol, WaitingInPatrol, DistanceToWaypoint, _blackboardComponent,IsMovementKey, IsIdleKey);
+        taskPatrol.SetNameIdleAnimation(NameConditionIdleAnimation);
+        taskPatrol.SetNameWalkingAnimation(NameConditionWalkingAnimation);
         taskPatrol.SetStructAnimationAI(structAnimationAI);
 
+        checkWalkOrIdleAnimationTask = new CheckWalkOrIdleAnimationTask(NameConditionWalkingAnimation, NameConditionIdleAnimation, structAnimationAI, _blackboardComponent, IsMovementKey, IsIdleKey, EnableCheckWalkOrIdleAnimationKey);
+
         taskCheckEnemyInFOVRange = new CheckEnemyInFOVRange(transform, EnemyLayerMask.value, _fovRange, null, NameDataTarget, _blackboardComponent);
-        taskCheckEnemyInFOVRange.SetNameWalkingAnimation(NameConditionWalkingAnimation_TaskCheckEnemyInFOVRange);
+        taskCheckEnemyInFOVRange.SetNameWalkingAnimation(NameConditionChargeAnimation);
         taskCheckEnemyInFOVRange.SetStructAnimationAI(structAnimationAI);
 
         taskGoToTarget = new TaskGoToTarget(transform, DistanceToTarget, speedGoToTarget, NameDataTarget, _blackboardComponent);
 
         taskCheckEnemyInAttackRange = new CheckEnemyInAttackRange(transform, NameDataTarget, attackRange, _blackboardComponent);
-        taskCheckEnemyInAttackRange.SetNameAnimationAttack(NameConditionAttackAnimation_TaskCheckEnemyInAttackRange);
+        taskCheckEnemyInAttackRange.SetNameAnimationAttack(NameConditionAttackAnimation);
         taskCheckEnemyInAttackRange.SetStructAnimationAI(structAnimationAI);
 
         taskAttack = new TaskAttack(transform, NameDataTarget, attackTime, damageAttack, _blackboardComponent);
-        taskAttack.SetNameAnimationWalking(NameConditionWalkingAnimation_TaskAttack);
+        taskAttack.SetNameAnimationWalking(NameConditionWalkingAnimation);
         taskAttack.SetStructAnimationAI(structAnimationAI);
 
         serviceCounter = gameObject.AddComponent<ServiceCounter>();
-        serviceCounter.SetInterval(intervalServiceCounter);
-        serviceCounter.ActivateUpdateService();
-        taskAttack.AddService(serviceCounter);
+        //serviceCounter.SetInterval(intervalServiceCounter);
+        //serviceCounter.ActivateUpdateService();
+        //taskAttack.AddService(serviceCounter);
 
         serviceNotifiy = gameObject.AddComponent<ServiceNotifiy>();
-        serviceNotifiy.SetInterval(intervalServiceNotify);
-        serviceNotifiy.ActivateUpdateService();
-        taskAttack.AddService(serviceNotifiy);
+        //serviceNotifiy.SetInterval(intervalServiceNotify);
+        //serviceNotifiy.ActivateUpdateService();
+        //taskAttack.AddService(serviceNotifiy);
 
         SettingStructureAnimationAI();
+
+        BlackboardDecorator CheckEnemyInAttackRangeDecorator = new BlackboardDecorator(
+            EnableAttacktypeNotifyObserver
+            , EnableAttacktypeObserverAbort
+            , EnableAttackKey
+            , EnableAttackkeyQuery
+            , _blackboardComponent);
 
         Sequence sequenceCheckEnemyInAttackRange = new Sequence(new List<Node>
         {
@@ -139,14 +155,14 @@ public class GuardBT : BehaviourTree
             taskAttack,
         });
 
-        BlackboardDecorator enableAttackDecorator = new BlackboardDecorator(sequenceCheckEnemyInAttackRange
-            , EnableAttacktypeNotifyObserver
+        sequenceCheckEnemyInAttackRange.AddDecorator(CheckEnemyInAttackRangeDecorator);
+
+        BlackboardDecorator sequenceCheckEnemyInFOVRangeDecorator = new BlackboardDecorator(
+            EnableAttacktypeNotifyObserver
             , EnableAttacktypeObserverAbort
             , EnableAttackKey
             , EnableAttackkeyQuery
             , _blackboardComponent);
-
-        sequenceCheckEnemyInAttackRange.AddDecorator(enableAttackDecorator);
 
         Sequence sequenceCheckEnemyInFOVRange = new Sequence(new List<Node>
         {
@@ -154,13 +170,19 @@ public class GuardBT : BehaviourTree
             taskGoToTarget,
         });
 
-        sequenceCheckEnemyInAttackRange.AddDecorator(enableAttackDecorator);
+        Sequence sequencePatrol = new Sequence(new List<Node>
+        {
+            taskPatrol,
+            checkWalkOrIdleAnimationTask,
+        });
+
+        sequenceCheckEnemyInFOVRange.AddDecorator(sequenceCheckEnemyInFOVRangeDecorator);
 
         Selector compositeRoot = new Selector(new List<Node>
         {
             sequenceCheckEnemyInAttackRange,
             sequenceCheckEnemyInFOVRange,
-            taskPatrol,
+            sequencePatrol,
         });
 
         Root root = new Root(compositeRoot);
@@ -199,6 +221,9 @@ public class GuardBT : BehaviourTree
         GetBlackboardComponent().AddValue("Position Bot", PositionBotValue);
         GetBlackboardComponent().AddValue(NameDataTarget, null);
 
+        GetBlackboardComponent().AddValue(IsMovementKey, IsMovement);
+        GetBlackboardComponent().AddValue(IsIdleKey, IsIdle);
+        GetBlackboardComponent().AddValue(EnableCheckWalkOrIdleAnimationKey, EnableCheckWalkOrIdleAnimation);
         GetBlackboardComponent().AddValue(EnableAttackKey, true);
     }
 
@@ -238,6 +263,7 @@ public class GuardBT : BehaviourTree
         }
         if (Input.GetKeyDown(KeyCode.Alpha9)) 
         {
+            _blackboardComponent.SetValue(EnableCheckWalkOrIdleAnimationKey, true);
             GetBlackboardComponent().SetValue(EnableAttackKey, false);
         }
         

@@ -268,4 +268,9 @@ public class StructAnimationAI : MonoBehaviour
             animator.SetTrigger(animationName);
         }
     }
+
+    public Animator GetAnimator() 
+    {
+        return animator;
+    }
 }

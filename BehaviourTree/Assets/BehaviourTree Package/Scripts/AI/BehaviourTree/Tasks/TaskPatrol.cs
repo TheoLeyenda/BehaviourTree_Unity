@@ -20,7 +20,10 @@ public class TaskPatrol : Task
     private float _waitCounter = 0;
     private bool _waiting = false;
 
-    public TaskPatrol(Transform transform, Transform[] waypoints,float speed, float waitTime, float distanceToWaypoint)
+    private Blackboard _blackboard;
+    private string _walkingKey;
+    private string _idleKey;
+    public TaskPatrol(Transform transform, Transform[] waypoints,float speed, float waitTime, float distanceToWaypoint, Blackboard blackboard, string walkingKey, string idleKey)
     {
         _distanceToWaypoint = distanceToWaypoint;
         _transform = transform;
@@ -32,18 +35,16 @@ public class TaskPatrol : Task
             _animator = _transform.GetComponent<Animator>();
         }
         TypeNode = "TaskPatrol";
+        _blackboard = blackboard;
+        _walkingKey = walkingKey;
+        _idleKey = idleKey;
     }
 
-    public TaskPatrol(Transform transform, Transform[] waypoints)
-    {
-        _transform = transform;
-        _waypoints = waypoints;
-        if (_transform)
-        {
-            _animator = _transform.GetComponent<Animator>();
-        }
-        TypeNode = "TaskPatrol";
-    }
+    public void SetBlackboard(Blackboard blackboard) => _blackboard = blackboard;
+
+    public void SetWalkingKey(string walkingKey) => _walkingKey = walkingKey;
+
+    public void SetIdleKey(string idleKey) => _idleKey = idleKey;
 
     public void SetStructAnimationAI(StructAnimationAI newStructAnimationAI) { _structAnimationAI = newStructAnimationAI; }
 
@@ -71,6 +72,8 @@ public class TaskPatrol : Task
                     //Camina
                     _structAnimationAI.ClearValuesAnimationSlots();
                     _structAnimationAI.SetDataAnimationSlot(_nameWalkingAnimation);
+                    _blackboard.SetValue(_idleKey, false);
+                    _blackboard.SetValue(_walkingKey, true);
                 }
             }
         }
@@ -89,12 +92,17 @@ public class TaskPatrol : Task
                     //Idle
                     _structAnimationAI.ClearValuesAnimationSlots();
                     _structAnimationAI.SetDataAnimationSlot(_nameIdleAnimation);
+                    _blackboard.SetValue(_idleKey, true);
+                    _blackboard.SetValue(_walkingKey, false);
                 }
             }
             else
             {
                 _transform.position = Vector3.MoveTowards(_transform.position, wp.position, _speed * Time.deltaTime);
                 _transform.LookAt(wp.position);
+
+                _blackboard.SetValue(_idleKey, false);
+                _blackboard.SetValue(_walkingKey, true);
             }
         }
 

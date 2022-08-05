@@ -58,10 +58,12 @@
   <ItemGroup>
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Blackboards\Blackboard.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Root.cs" />
+    <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Decorators\BlackboardDecorator.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Tasks\Task.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\BT\GuardBT.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\BT\BehaviourTree.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Tasks\TaskPatrol.cs" />
+    <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Decorators\Decorator.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Tasks\CheckEnemyInFOVRange.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Composites\Composite.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\HealthComponent.cs" />
@@ -76,8 +78,7 @@
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Services\ServiceNotifiy.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Services\Service.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Tasks\TaskGoToTarget.cs" />
-    <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Decorators\Decorator.cs" />
-    <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Decorators\BlackboardDecorator.cs" />
+    <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Tasks\CheckWalkOrIdleAnimationTask.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

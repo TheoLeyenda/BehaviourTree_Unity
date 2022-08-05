@@ -21,20 +21,11 @@ namespace BehaviorTree
         {
             hideFlags = HideFlags.HideInInspector;
         }
-        public Decorator(Node nodeDecorator) 
-        {
-            _nodeDecorator = nodeDecorator;
-        }
+        public Decorator() { }
 
-        public virtual bool CheckDecorator()
-        {
-            return true;
-        }
+        public virtual bool CheckDecorator(){ return true; }
 
-        public void SetNodeDecorator(Node node) 
-        {
-            _nodeDecorator = node;
-        }
+        public void SetNodeDecorator(Node node) => _nodeDecorator = node;
 
         protected void CheckTypeAbort()
         {

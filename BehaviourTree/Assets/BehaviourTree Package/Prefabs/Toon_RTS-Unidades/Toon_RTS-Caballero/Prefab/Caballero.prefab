@@ -179,8 +179,13 @@ MonoBehaviour:
   InitialBot: 84
   structAnimationAI: {fileID: 2345188186670296673}
   NameDataTarget: Target
-  NameConditionIdleAnimation_TaskPatrol: Idle
-  NameConditionWalkingAnimation_TaskPatrol: CombatWalk
+  NameConditionIdleAnimation: Idle
+  NameConditionWalkingAnimation: CombatWalk
+  NameConditionChargeAnimation: Charge
+  NameConditionAttackAnimation: Attack
+  IsMovementKey: IsWalking
+  IsIdleKey: IsIdle
+  EnableCheckWalkOrIdleAnimationKey: EnableCheckWalkOrIdleAnimation
   SpeedPatrol: 2
   WaitingInPatrol: 2.5
   DistanceToWaypoint: 0.02
@@ -189,7 +194,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  NameConditionWalkingAnimation_TaskCheckEnemyInFOVRange: Charge
   EnemyLayerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -197,10 +201,8 @@ MonoBehaviour:
   DistanceToTarget: 1.1
   speedGoToTarget: 4
   attackRange: 1.1
-  NameConditionAttackAnimation_TaskCheckEnemyInAttackRange: Attack
   attackTime: 1
   damageAttack: 10
-  NameConditionWalkingAnimation_TaskAttack: CombatWalk
   intervalServiceCounter: 1
   intervalServiceNotify: 5
   EnableAttacktypeNotifyObserver: 0
