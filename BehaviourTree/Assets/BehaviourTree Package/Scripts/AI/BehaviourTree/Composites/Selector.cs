@@ -33,12 +33,6 @@ namespace BehaviorTree
                     i = 0;
                     _abortType = EAbortType.None;
                 }*/
-                /*if (_abortType == EAbortType.AbortSelf)
-                {
-                    _abortType = EAbortType.None;
-                    i = childrens.Count - 1;
-                    return CheckReturnNodeState();
-                }*/
                 /*else if (_abortType == EAbortType.AbortLowerPriorirty)
                 {
                     state = childrens[i].Evaluate();
@@ -46,7 +40,7 @@ namespace BehaviorTree
                     _abortType = EAbortType.None;
                     return state;
                 }*/
-                if (childrens[i].GetAbortType() == EAbortType.AbortSelf)
+                if (!childrens[i].CheckDecorators() || childrens[i].GetAbortType() == EAbortType.AbortSelf)
                 {
                     childrens[i].SetAbortType(EAbortType.None);
                     childrens[i].SetState(NodeState.FAILURE);

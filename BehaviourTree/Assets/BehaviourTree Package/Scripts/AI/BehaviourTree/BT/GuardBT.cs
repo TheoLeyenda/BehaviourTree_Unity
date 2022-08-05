@@ -18,7 +18,7 @@ public class GuardBT : BehaviourTree
     [Header("General Settings")]
     public StructAnimationAI structAnimationAI;
     [SerializeField]
-    protected string NameDataTarget = "target";
+    protected string NameDataTarget = "Target";
     [SerializeField]
     protected string NameConditionIdleAnimation;
     [SerializeField]
@@ -33,6 +33,8 @@ public class GuardBT : BehaviourTree
     protected string IsIdleKey = "IsIdle";
     [SerializeField]
     protected string EnableCheckWalkOrIdleAnimationKey = "EnableCheckWalkOrIdleAnimation";
+    [SerializeField]
+    protected string IsWaitingKey = "IsWaiting";
     private Animator animator;
 
     [Header("Task Patrol Settings")]
@@ -82,6 +84,8 @@ public class GuardBT : BehaviourTree
     protected ServiceNotifiy serviceNotifiy;
 
     protected CheckWalkOrIdleAnimationTask checkWalkOrIdleAnimationTask;
+    protected ClearTargetTask clearTargetTask;
+    protected ClearIsWaitingTask clearIsWaitingTask;
 
     //Keys to Blackboard.
     private object NameValue;
@@ -109,12 +113,25 @@ public class GuardBT : BehaviourTree
     {
         animator = GetComponent<Animator>();
 
-        taskPatrol = new TaskPatrol(transform, waypoints, SpeedPatrol, WaitingInPatrol, DistanceToWaypoint, _blackboardComponent,IsMovementKey, IsIdleKey);
+        taskPatrol = new TaskPatrol(transform, waypoints, SpeedPatrol, WaitingInPatrol, DistanceToWaypoint, _blackboardComponent,IsMovementKey, IsIdleKey, IsWaitingKey);
         taskPatrol.SetNameIdleAnimation(NameConditionIdleAnimation);
         taskPatrol.SetNameWalkingAnimation(NameConditionWalkingAnimation);
         taskPatrol.SetStructAnimationAI(structAnimationAI);
 
         checkWalkOrIdleAnimationTask = new CheckWalkOrIdleAnimationTask(NameConditionWalkingAnimation, NameConditionIdleAnimation, structAnimationAI, _blackboardComponent, IsMovementKey, IsIdleKey, EnableCheckWalkOrIdleAnimationKey);
+
+        BlackboardDecorator ClearTargetDecorator = new BlackboardDecorator(
+            BlackboardDecorator.ETypeNotifyObserver.OnChangeResult
+            , ETypeObserverAbort.None
+            , EnableAttackKey
+            , BlackboardDecorator.EKeyQuery.IsNotSet
+            , _blackboardComponent);
+
+        clearTargetTask = new ClearTargetTask(_blackboardComponent, NameDataTarget);
+
+        clearTargetTask.AddDecorator(ClearTargetDecorator);
+
+        clearIsWaitingTask = new ClearIsWaitingTask(_blackboardComponent, IsWaitingKey);
 
         taskCheckEnemyInFOVRange = new CheckEnemyInFOVRange(transform, EnemyLayerMask.value, _fovRange, null, NameDataTarget, _blackboardComponent);
         taskCheckEnemyInFOVRange.SetNameWalkingAnimation(NameConditionChargeAnimation);
@@ -153,6 +170,7 @@ public class GuardBT : BehaviourTree
         {
             taskCheckEnemyInAttackRange,
             taskAttack,
+            clearIsWaitingTask,
         });
 
         sequenceCheckEnemyInAttackRange.AddDecorator(CheckEnemyInAttackRangeDecorator);
@@ -180,6 +198,7 @@ public class GuardBT : BehaviourTree
 
         Selector compositeRoot = new Selector(new List<Node>
         {
+            clearTargetTask,
             sequenceCheckEnemyInAttackRange,
             sequenceCheckEnemyInFOVRange,
             sequencePatrol,
@@ -225,6 +244,7 @@ public class GuardBT : BehaviourTree
         GetBlackboardComponent().AddValue(IsIdleKey, IsIdle);
         GetBlackboardComponent().AddValue(EnableCheckWalkOrIdleAnimationKey, EnableCheckWalkOrIdleAnimation);
         GetBlackboardComponent().AddValue(EnableAttackKey, true);
+        GetBlackboardComponent().AddValue(IsWaitingKey, false);
     }
 
     protected override void UpdateBlackboardKeys()

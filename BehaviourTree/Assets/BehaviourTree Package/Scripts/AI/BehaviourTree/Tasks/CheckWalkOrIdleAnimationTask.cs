@@ -36,7 +36,6 @@ public class CheckWalkOrIdleAnimationTask : Task
         }
         else if((bool)_blackboard.GetValue(_isWalkingKey)) 
         {
-            Debug.Log("ENTRE");
             _structAnimationAI.ClearValuesAnimationSlots();
             _structAnimationAI.SetDataAnimationSlot(_nameConditionAnimationWalk);
             state = NodeState.SUCCESSE;

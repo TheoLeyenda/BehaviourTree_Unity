@@ -40,7 +40,7 @@ namespace BehaviorTree
                     _abortType = EAbortType.None;
                     return state;
                 }*/
-                if (childrens[i].GetAbortType() == EAbortType.AbortSelf)
+                if (!childrens[i].CheckDecorators() || childrens[i].GetAbortType() == EAbortType.AbortSelf)
                 {
                     childrens[i].SetAbortType(EAbortType.None);
                     childrens[i].SetState(NodeState.SUCCESSE);

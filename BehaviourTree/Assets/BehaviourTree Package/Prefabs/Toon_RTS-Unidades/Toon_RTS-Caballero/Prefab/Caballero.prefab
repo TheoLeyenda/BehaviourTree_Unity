@@ -208,7 +208,7 @@ MonoBehaviour:
   EnableAttacktypeNotifyObserver: 0
   EnableAttacktypeObserverAbort: 1
   EnableAttackKey: EnableAttack
-  EnableAttackkeyQuery: 1
+  EnableAttackkeyQuery: 0
 --- !u!114 &971047695764770693
 MonoBehaviour:
   m_ObjectHideFlags: 0

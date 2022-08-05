@@ -72,19 +72,19 @@ public class BlackboardDecorator : Decorator
             case EKeyQuery.IsSet:
                 if (_blackboard.GetBlackboardKeysData()[_blackboard.GetIndexBlackboardKeyData(_blackboardkey)].GetIsSet())
                 {
-                    CheckTypeAbort();
-                    return false;
+                    return true;
                 }
                 break;
             case EKeyQuery.IsNotSet:
                 if (!_blackboard.GetBlackboardKeysData()[_blackboard.GetIndexBlackboardKeyData(_blackboardkey)].GetIsSet())
                 {
-                    CheckTypeAbort();
-                    return false;
+                    
+                    return true;
                 }
                 break;
         }
-        return true;
+        CheckTypeAbort();
+        return false;
     }
 
     public string GetBlackboardKey() { return _blackboardkey; }

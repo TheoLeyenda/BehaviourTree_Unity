@@ -63,12 +63,14 @@
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\BT\GuardBT.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\BT\BehaviourTree.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Tasks\TaskPatrol.cs" />
+    <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Tasks\ClearTargetTask.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Decorators\Decorator.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Tasks\CheckEnemyInFOVRange.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Composites\Composite.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\HealthComponent.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Services\ServiceCounter.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Tasks\DebugLogTask.cs" />
+    <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Tasks\CheckWalkOrIdleAnimationTask.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Structs\StructAnimationAI.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Tasks\CheckEnemyInAttackRange.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Tasks\TaskAttack.cs" />
@@ -77,8 +79,8 @@
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Composites\Sequence.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Services\ServiceNotifiy.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Services\Service.cs" />
+    <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Tasks\ClearIsWaitingTask.cs" />
     <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Tasks\TaskGoToTarget.cs" />
-    <Compile Include="Assets\BehaviourTree Package\Scripts\AI\BehaviourTree\Tasks\CheckWalkOrIdleAnimationTask.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
