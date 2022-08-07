@@ -156,6 +156,33 @@ public class StructAnimationAI : MonoBehaviour
         }
     }
 
+    public bool GeDataAnimationSlotBoolean(string animationName)
+    {
+        if (registerAnimationsDataAI.ContainsKey(animationName))
+        {
+            return animator.GetBool(animationName);
+        }
+        return false;
+    }
+
+    public int GetDataAnimationSlotInteger(string animationName)
+    {
+        if (registerAnimationsDataAI.ContainsKey(animationName))
+        {
+            return animator.GetInteger(animationName);
+        }
+        return -1;
+    }
+
+    public float GetDataAnimationSlotFloat(string animationName)
+    {
+        if (registerAnimationsDataAI.ContainsKey(animationName))
+        {
+            return animator.GetFloat(animationName);
+        }
+        return -1.0f;
+    }
+
     public void SetDataAnimationSlot(string animationName)
     {
         if (!registerAnimationsDataAI.ContainsKey(animationName))

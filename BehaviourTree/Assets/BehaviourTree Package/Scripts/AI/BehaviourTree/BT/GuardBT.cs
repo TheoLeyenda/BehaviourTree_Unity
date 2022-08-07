@@ -208,7 +208,7 @@ public class GuardBT : BehaviourTree
 
         taskCheckEnemyInFOVRange.SetRootNode(root);
 
-        root.ShowNodesRoot();
+        //root.ShowNodesRoot();
 
         return root;
     }

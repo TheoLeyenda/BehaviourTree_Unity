@@ -105,6 +105,12 @@ public class TaskPatrol : Task
             }
             else
             {
+               
+                if (!_structAnimationAI.GeDataAnimationSlotBoolean(_nameWalkingAnimation))
+                {
+                    _structAnimationAI.ClearValuesAnimationSlots();
+                    _structAnimationAI.SetDataAnimationSlot(_nameWalkingAnimation);
+                }
                 _transform.position = Vector3.MoveTowards(_transform.position, wp.position, _speed * Time.deltaTime);
                 _transform.LookAt(wp.position);
             }
