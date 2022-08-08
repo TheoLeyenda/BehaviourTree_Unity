@@ -186,6 +186,7 @@ public class GuardBT : BehaviourTree
         {
             taskCheckEnemyInFOVRange,
             taskGoToTarget,
+            clearIsWaitingTask,
         });
 
         sequenceCheckEnemyInFOVRange.AddDecorator(sequenceCheckEnemyInFOVRangeDecorator);
