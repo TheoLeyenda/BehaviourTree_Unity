@@ -27,12 +27,13 @@ namespace BehaviorTree
 
             InitNodesToRoot(_compositeRoot, _currentIndexExecute);
 
+            _currentIndexExecute = 0;
+
         }
 
         public void InitNodesToRoot(Node node, int index)
         {
             AddNodeToRoot(node, index);
-            //node.ShowChildrens();
             if (node.GetChildrens().Count > 0)
             {
                 foreach (Node child in node.GetChildrens())

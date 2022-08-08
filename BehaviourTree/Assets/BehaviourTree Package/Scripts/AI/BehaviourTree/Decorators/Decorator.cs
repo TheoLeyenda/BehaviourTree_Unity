@@ -26,24 +26,5 @@ namespace BehaviorTree
         public virtual bool CheckDecorator(){ return true; }
 
         public void SetNodeDecorator(Node node) => _nodeDecorator = node;
-
-        protected void CheckTypeAbort()
-        {
-            switch (_typeObserverAbort) 
-            {
-                case ETypeObserverAbort.None:
-                    _nodeDecorator.SetAbortType(EAbortType.None);
-                    break;
-                case ETypeObserverAbort.Both:
-                    _nodeDecorator.SetAbortType(EAbortType.AbortBoth);
-                    break;
-                case ETypeObserverAbort.Self:
-                    _nodeDecorator.SetAbortType(EAbortType.AbortSelf);
-                    break;
-                case ETypeObserverAbort.LowerPriority:
-                    _nodeDecorator.SetAbortType(EAbortType.AbortLowerPriorirty);
-                    break;
-            }
-        }
     }
 }

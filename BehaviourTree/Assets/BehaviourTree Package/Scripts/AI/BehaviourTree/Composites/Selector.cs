@@ -19,48 +19,20 @@ namespace BehaviorTree
         {
             base.ExecuteNode();
 
-            if (_abortType == EAbortType.AbortSelf)
-            {
-                Debug.Log("Entre al AbortSelf");
-                return CheckReturnNodeState();
-            }
-
-
             for (int i = 0; i < childrens.Count; i++)
             {
-                /*if (_abortType == EAbortType.AbortBoth)
+                switch (childrens[i].Evaluate())
                 {
-                    i = 0;
-                    _abortType = EAbortType.None;
-                }*/
-                /*else if (_abortType == EAbortType.AbortLowerPriorirty)
-                {
-                    state = childrens[i].Evaluate();
-                    i = childrens.Count;
-                    _abortType = EAbortType.None;
-                    return state;
-                }*/
-                if (!childrens[i].CheckDecorators() || childrens[i].GetAbortType() == EAbortType.AbortSelf)
-                {
-                    childrens[i].SetAbortType(EAbortType.None);
-                    childrens[i].SetState(NodeState.FAILURE);
-                    continue;
-                }
-                else
-                {
-                    switch (childrens[i].Evaluate())
-                    {
-                        case NodeState.FAILURE:
-                            continue;
-                        case NodeState.SUCCESSE:
-                            state = NodeState.SUCCESSE;
-                            return state;
-                        case NodeState.RUNNING:
-                            state = NodeState.RUNNING;
-                            return state;
-                        default:
-                            continue;
-                    }
+                    case NodeState.FAILURE:
+                        continue;
+                    case NodeState.SUCCESSE:
+                        state = NodeState.SUCCESSE;
+                        return state;
+                    case NodeState.RUNNING:
+                        state = NodeState.RUNNING;
+                        return state;
+                    default:
+                        continue;
                 }
                 
             }

@@ -76,11 +76,6 @@ namespace BehaviorTree
             }
         }
 
-        public void ResetTree() 
-        {
-            _root.GetComposite().SetAbortType(EAbortType.AbortBoth);
-        }
-
         public Blackboard GetBlackboardComponent()
         {
             return _blackboardComponent;

@@ -10,13 +10,6 @@ namespace BehaviorTree
         SUCCESSE,
         FAILURE,
     }
-    public enum EAbortType
-    {
-        None,
-        AbortSelf,
-        AbortBoth,
-        AbortLowerPriorirty,
-    }
 
     public class Node
     {
@@ -26,7 +19,6 @@ namespace BehaviorTree
         protected List<Node> childrens = new List<Node>();
         protected List<Service> services = new List<Service>();
         protected List<Decorator> decorators = new List<Decorator>();
-        protected EAbortType _abortType = EAbortType.None;
         public Node()
         {
             parent = null;
@@ -169,16 +161,6 @@ namespace BehaviorTree
         public void SetState(NodeState nodeState) 
         {
             state = nodeState;
-        }
-
-        public void SetAbortType(EAbortType abortType)
-        {
-            _abortType = abortType;
-        }
-
-        public EAbortType GetAbortType() 
-        {
-            return _abortType;
         }
 
         public List<Node> GetChildrens() { return childrens; }
