@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
 namespace BehaviorTree
 {
 
@@ -17,6 +17,10 @@ namespace BehaviorTree
     {
         protected Node _nodeDecorator;
         protected ETypeObserverAbort _typeObserverAbort = ETypeObserverAbort.None;
+        public static Action<Decorator> OnAbortSelf;
+        public static Action<Decorator> OnAbortLowerPriority;
+        public static Action<Decorator> OnAbortBoth;
+
         protected virtual void Start()
         {
             hideFlags = HideFlags.HideInInspector;
@@ -26,5 +30,30 @@ namespace BehaviorTree
         public virtual bool CheckDecorator(){ return true; }
 
         public void SetNodeDecorator(Node node) => _nodeDecorator = node;
+
+        protected void CheckTypeAbort() 
+        {
+            switch (_typeObserverAbort) 
+            {
+                case ETypeObserverAbort.Both:
+                    if (OnAbortBoth != null) 
+                    {
+                        OnAbortBoth(this);
+                    }
+                    break;
+                case ETypeObserverAbort.LowerPriority:
+                    if (OnAbortLowerPriority != null) 
+                    {
+                        OnAbortLowerPriority(this);
+                    }
+                    break;
+                case ETypeObserverAbort.Self:
+                    if (OnAbortSelf != null) 
+                    {
+                        OnAbortSelf(this);
+                    }
+                    break;
+            }
+        }
     }
 }

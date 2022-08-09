@@ -29,6 +29,12 @@ namespace BehaviorTree
 
             _currentIndexExecute = 0;
 
+            TypeNode = "Root";
+
+            for(int i = 0; i < _allNodes.Count; i++) 
+            {
+                _allNodes[i]._node.SetRoot(this);
+            }
         }
 
         public void InitNodesToRoot(Node node, int index)
@@ -64,6 +70,50 @@ namespace BehaviorTree
             if (node == null)
                 return;
             _allNodes.Add(new TreeNode(node, index));
+        }
+
+        public void AbortSelfNode(Node FromNode) 
+        {
+            int index = GetIndexNode(FromNode);
+            if (index != -1) 
+                FromNode.SetExecuteEnable(false);
+        }
+
+        public void AbortLowPriorityNode(Node FromNode) 
+        {
+            int index = GetIndexNode(FromNode);
+            if (index != -1)
+                DisableExecuteNodes(index + 1);
+        }
+
+        public void AbortBothNode(Node FromNode) 
+        {
+            int index = GetIndexNode(FromNode);
+            if (index != -1)
+                DisableExecuteNodes(index);
+        }
+
+        private void DisableExecuteNodes(int fromNodeIndex) 
+        {
+            if (fromNodeIndex < _allNodes.Count)
+            {
+                for (int i = fromNodeIndex; i < _allNodes.Count; i++)
+                {
+                    _allNodes[i]._node.SetExecuteEnable(false);
+                }
+            }
+        }
+
+        private int GetIndexNode(Node node) 
+        {
+            for(int i = 0; i < _allNodes.Count; i++) 
+            {
+                if(_allNodes[i]._node == node) 
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
     }
 }

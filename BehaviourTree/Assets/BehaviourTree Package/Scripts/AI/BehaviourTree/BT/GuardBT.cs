@@ -109,9 +109,11 @@ public class GuardBT : BehaviourTree
     [SerializeField]
     protected BlackboardDecorator.EKeyQuery EnableAttackkeyQuery;
 
+    protected BreakSequenceTask breakSequenceTask;
     protected override Root SetupTree()
     {
         animator = GetComponent<Animator>();
+        breakSequenceTask = new BreakSequenceTask();
 
         taskPatrol = new TaskPatrol(transform, waypoints, SpeedPatrol, WaitingInPatrol, DistanceToWaypoint, _blackboardComponent,IsMovementKey, IsIdleKey, IsWaitingKey);
         taskPatrol.SetNameIdleAnimation(NameConditionIdleAnimation);

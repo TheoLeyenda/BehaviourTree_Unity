@@ -16,11 +16,13 @@ public class ClearTargetTask : Task
 
     protected override NodeState ExecuteNode()
     {
-        if (!_blackboard || _blackboard.GetValue(_targetKey) == null)
+        base.ExecuteNode();
+
+        if (!_blackboard)
             return NodeState.FAILURE;
 
         _blackboard.ClearValue(_targetKey);
 
-        return base.ExecuteNode();
+        return NodeState.SUCCESSE;
     }
 }

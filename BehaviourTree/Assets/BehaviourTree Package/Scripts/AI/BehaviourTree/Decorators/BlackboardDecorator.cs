@@ -83,6 +83,7 @@ public class BlackboardDecorator : Decorator
                 }
                 break;
         }
+        CheckTypeAbort();
         return false;
     }
 

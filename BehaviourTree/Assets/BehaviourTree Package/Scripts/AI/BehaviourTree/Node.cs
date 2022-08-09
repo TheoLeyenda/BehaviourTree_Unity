@@ -16,13 +16,20 @@ namespace BehaviorTree
         protected NodeState state;
         protected string TypeNode = "Node";
         public Node parent;
+        protected Root root;
         protected List<Node> childrens = new List<Node>();
         protected List<Service> services = new List<Service>();
         protected List<Decorator> decorators = new List<Decorator>();
+        protected bool executeEnable = true;
+        protected ETypeObserverAbort lastAbortType;
         public Node()
         {
             parent = null;
             TypeNode = "Node";
+
+            Decorator.OnAbortBoth += OnAbortBoth;
+            Decorator.OnAbortLowerPriority += OnAbortLowPriority;
+            Decorator.OnAbortSelf += OnAbortSelf;
         }
 
         public Node(List<Node> _childrens)
@@ -30,7 +37,20 @@ namespace BehaviorTree
             foreach (Node child in _childrens)
                 _Attach(child);
             TypeNode = "Node";
+
+            Decorator.OnAbortBoth += OnAbortBoth;
+            Decorator.OnAbortLowerPriority += OnAbortLowPriority;
+            Decorator.OnAbortSelf += OnAbortSelf;
         }
+
+        ~Node() 
+        {
+            Decorator.OnAbortBoth -= OnAbortBoth;
+            Decorator.OnAbortLowerPriority -= OnAbortLowPriority;
+            Decorator.OnAbortSelf -= OnAbortSelf;
+        }
+
+        public void SetRoot(Root newRoot) => root = newRoot;
 
         public void ShowChildrens()
         {
@@ -52,21 +72,25 @@ namespace BehaviorTree
 
         private void _Attach(Node node)
         {
-            node.parent = this;
-            childrens.Add(node);
+            if (node != null)
+            {
+                node.parent = this;
+                childrens.Add(node);
+            }
         }
 
-        public bool CheckDecorators() 
+        public bool CheckDecorators()
         {
-            for(int i = 0; i < decorators.Count; i++) 
+            for (int i = 0; i < decorators.Count; i++)
             {
                 if (!decorators[i].CheckDecorator())
                     return false;
             }
+            lastAbortType = ETypeObserverAbort.None;
             return true;
         }
 
-        protected virtual NodeState ExecuteNode() 
+        protected virtual NodeState ExecuteNode()
         {
             for (int i = 0; i < services.Count; i++)
             {
@@ -80,13 +104,19 @@ namespace BehaviorTree
 
         public virtual NodeState Evaluate()
         {
-            if (CheckDecorators())
+            if (CheckDecorators() || (executeEnable && lastAbortType == ETypeObserverAbort.LowerPriority))
             {
-                return ExecuteNode();
+                NodeState nodeState = ExecuteNode();
+                if (!CheckDecorators()) 
+                {
+                    Debug.Log(TypeNode);
+                    executeEnable = false;
+                }
+                return nodeState;
             }
             return CheckReturnNodeState();
         }
-        protected NodeState CheckReturnNodeState() 
+        protected NodeState CheckReturnNodeState()
         {
             if (parent != null && parent.GetTypeNode() == "Selector")
             {
@@ -99,20 +129,20 @@ namespace BehaviorTree
         }
         public string GetTypeNode() { return TypeNode; }
 
-        public void AddDecorator(Decorator decorator) 
+        public void AddDecorator(Decorator decorator)
         {
             decorator.SetNodeDecorator(this);
             decorators.Add(decorator);
         }
 
-        public void RemoveDecorator(Decorator decorator) 
+        public void RemoveDecorator(Decorator decorator)
         {
             decorator.SetNodeDecorator(null);
             decorators.Remove(decorator);
             UnityEngine.GameObject.Destroy(decorator);
         }
 
-        public void ClearAllDecorators() 
+        public void ClearAllDecorators()
         {
             List<Decorator> auxList = new List<Decorator>();
             for (int i = 0; i < decorators.Count; i++)
@@ -158,11 +188,54 @@ namespace BehaviorTree
             Debug.Log("Services Count: " + services.Count);
         }
 
-        public void SetState(NodeState nodeState) 
+        public void SetState(NodeState nodeState)
         {
             state = nodeState;
         }
 
+        public void SetExecuteEnable(bool enable) => executeEnable = enable;
+
+        public bool GetExecuteEnable() { return executeEnable; }
+
         public List<Node> GetChildrens() { return childrens; }
+
+        private void OnAbortBoth(Decorator decorator)
+        {
+            if (CheckContainsDecorator(decorator))
+            {
+                lastAbortType = ETypeObserverAbort.Both;
+                root.AbortBothNode(this);
+            }
+        }
+        private void OnAbortLowPriority(Decorator decorator) 
+        {
+            if (CheckContainsDecorator(decorator))
+            {
+                lastAbortType = ETypeObserverAbort.LowerPriority;
+                root.AbortLowPriorityNode(this);
+            }
+        }
+
+        private void OnAbortSelf(Decorator decorator) 
+        {
+            if (CheckContainsDecorator(decorator))
+            {
+                lastAbortType = ETypeObserverAbort.Self;
+                root.AbortSelfNode(this);
+            }
+        }
+
+        private bool CheckContainsDecorator(Decorator decorator) 
+        {
+            for(int i = 0; i < decorators.Count; i++) 
+            {
+                if(decorators[i] == decorator) 
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
     }
 }

@@ -21,20 +21,35 @@ namespace BehaviorTree
 
             for (int i = 0; i < childrens.Count; i++)
             {
-                switch (childrens[i].Evaluate())
+                if (!executeEnable)
                 {
-                    case NodeState.FAILURE:
-                        continue;
-                    case NodeState.SUCCESSE:
-                        state = NodeState.SUCCESSE;
-                        return state;
-                    case NodeState.RUNNING:
-                        state = NodeState.RUNNING;
-                        return state;
-                    default:
-                        continue;
+                    executeEnable = true;
+                    for(int j = 0; j < childrens.Count; j++) 
+                    {
+                        childrens[j].SetExecuteEnable(true);
+                    }
+                    return CheckReturnNodeState();
                 }
-                
+
+                if (childrens[i].GetExecuteEnable())
+                {
+                    switch (childrens[i].Evaluate())
+                    {
+                        case NodeState.FAILURE:
+                            continue;
+                        case NodeState.SUCCESSE:
+                            state = NodeState.SUCCESSE;
+                            return state;
+                        case NodeState.RUNNING:
+                            state = NodeState.RUNNING;
+                            return state;
+                        default:
+                            continue;
+                    }
+                }
+                else
+                    childrens[i].SetExecuteEnable(true);
+
             }
             state = NodeState.FAILURE;
             return state;

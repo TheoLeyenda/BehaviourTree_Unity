@@ -18,24 +18,40 @@ namespace BehaviorTree
         protected override NodeState ExecuteNode()
         {
             base.ExecuteNode();
+
             bool anyChildIsRunning = false;
 
-            for (int i = 0; i < childrens.Count; i++) 
+            for (int i = 0; i < childrens.Count; i++)
             {
-                switch (childrens[i].Evaluate())
+                if (!executeEnable)
                 {
-                    case NodeState.FAILURE:
-                        state = NodeState.FAILURE;
-                        return state;
-                    case NodeState.SUCCESSE:
-                        continue;
-                    case NodeState.RUNNING:
-                        anyChildIsRunning = true;
-                        continue;
-                    default:
-                        state = NodeState.SUCCESSE;
-                        return state;
+                    executeEnable = true;
+                    for (int j = 0; j < childrens.Count; j++)
+                    {
+                        childrens[j].SetExecuteEnable(true);
+                    }
+                    return CheckReturnNodeState();
                 }
+
+                if (childrens[i].GetExecuteEnable())
+                {
+                    switch (childrens[i].Evaluate())
+                    {
+                        case NodeState.FAILURE:
+                            state = NodeState.FAILURE;
+                            return state;
+                        case NodeState.SUCCESSE:
+                            continue;
+                        case NodeState.RUNNING:
+                            anyChildIsRunning = true;
+                            continue;
+                        default:
+                            state = NodeState.SUCCESSE;
+                            return state;
+                    }
+                }
+                else
+                    childrens[i].SetExecuteEnable(true);
             }
 
             state = anyChildIsRunning ? NodeState.RUNNING : NodeState.SUCCESSE;
