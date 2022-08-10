@@ -25,11 +25,7 @@ namespace BehaviorTree
             {
                 if (!executeEnable)
                 {
-                    executeEnable = true;
-                    for (int j = 0; j < childrens.Count; j++)
-                    {
-                        childrens[j].SetExecuteEnable(true);
-                    }
+                    CheckDecorators();
                     return CheckReturnNodeState();
                 }
 
@@ -51,7 +47,7 @@ namespace BehaviorTree
                     }
                 }
                 else
-                    childrens[i].SetExecuteEnable(true);
+                    childrens[i].CheckDecorators();
             }
 
             state = anyChildIsRunning ? NodeState.RUNNING : NodeState.SUCCESSE;

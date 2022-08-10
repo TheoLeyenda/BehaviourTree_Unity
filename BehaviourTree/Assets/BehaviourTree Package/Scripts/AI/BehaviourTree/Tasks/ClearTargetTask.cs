@@ -18,7 +18,7 @@ public class ClearTargetTask : Task
     {
         base.ExecuteNode();
 
-        if (!_blackboard)
+        if (!_blackboard || _blackboard.GetValue(_targetKey) == null)
             return NodeState.FAILURE;
 
         _blackboard.ClearValue(_targetKey);

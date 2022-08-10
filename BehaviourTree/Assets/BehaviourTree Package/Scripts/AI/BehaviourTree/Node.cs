@@ -87,6 +87,7 @@ namespace BehaviorTree
                     return false;
             }
             lastAbortType = ETypeObserverAbort.None;
+            executeEnable = true;
             return true;
         }
 
@@ -104,6 +105,8 @@ namespace BehaviorTree
 
         public virtual NodeState Evaluate()
         {
+            if(decorators.Count > 0)
+                Debug.Log("Name Node: "+ TypeNode + "Check Decorator:" + CheckDecorators() + ", executeEnable: " + executeEnable + ", lastAbortType: " + lastAbortType.ToString());
             if (CheckDecorators() || (executeEnable && lastAbortType == ETypeObserverAbort.LowerPriority))
             {
                 NodeState nodeState = ExecuteNode();

@@ -101,13 +101,13 @@ public class GuardBT : BehaviourTree
 
     [Header("EnableAttackDecorator Settings")]
     [SerializeField]
-    protected BlackboardDecorator.ETypeNotifyObserver EnableAttacktypeNotifyObserver;
+    protected BlackboardDecorator.ETypeNotifyObserver EnableAttackTypeNotifyObserver;
     [SerializeField]
-    protected ETypeObserverAbort EnableAttacktypeObserverAbort;
+    protected ETypeObserverAbort EnableAttackTypeObserverAbort;
     [SerializeField]
     protected string EnableAttackKey;
     [SerializeField]
-    protected BlackboardDecorator.EKeyQuery EnableAttackkeyQuery;
+    protected BlackboardDecorator.EKeyQuery EnableAttackKeyQuery;
 
     protected BreakSequenceTask breakSequenceTask;
     protected override Root SetupTree()
@@ -122,12 +122,12 @@ public class GuardBT : BehaviourTree
 
         checkWalkOrIdleAnimationTask = new CheckWalkOrIdleAnimationTask(NameConditionWalkingAnimation, NameConditionIdleAnimation, structAnimationAI, _blackboardComponent, IsMovementKey, IsIdleKey, EnableCheckWalkOrIdleAnimationKey);
 
-        BlackboardDecorator ClearTargetDecorator = new BlackboardDecorator(
-            BlackboardDecorator.ETypeNotifyObserver.OnChangeResult
-            , ETypeObserverAbort.None
-            , EnableAttackKey
-            , BlackboardDecorator.EKeyQuery.IsNotSet
-            , _blackboardComponent);
+        BlackboardDecorator ClearTargetDecorator = gameObject.AddComponent<BlackboardDecorator>();
+        ClearTargetDecorator.SetTypeNotifyObserver(BlackboardDecorator.ETypeNotifyObserver.OnChangeResult);
+        ClearTargetDecorator.SetTypeObserverAbort(ETypeObserverAbort.None);
+        ClearTargetDecorator.SetBlackboardKey(EnableAttackKey);
+        ClearTargetDecorator.SetKeyQuery(BlackboardDecorator.EKeyQuery.IsNotSet);
+        ClearTargetDecorator.SetBlackboard(_blackboardComponent);
 
         clearTargetTask = new ClearTargetTask(_blackboardComponent, NameDataTarget);
 
@@ -161,12 +161,12 @@ public class GuardBT : BehaviourTree
 
         SettingStructureAnimationAI();
 
-        BlackboardDecorator CheckEnemyInAttackRangeDecorator = new BlackboardDecorator(
-            EnableAttacktypeNotifyObserver
-            , EnableAttacktypeObserverAbort
-            , EnableAttackKey
-            , EnableAttackkeyQuery
-            , _blackboardComponent);
+        BlackboardDecorator CheckEnemyInAttackRangeDecorator = gameObject.AddComponent<BlackboardDecorator>();
+        CheckEnemyInAttackRangeDecorator.SetTypeNotifyObserver(EnableAttackTypeNotifyObserver);
+        CheckEnemyInAttackRangeDecorator.SetTypeObserverAbort(EnableAttackTypeObserverAbort);
+        CheckEnemyInAttackRangeDecorator.SetBlackboardKey(EnableAttackKey);
+        CheckEnemyInAttackRangeDecorator.SetKeyQuery(EnableAttackKeyQuery);
+        CheckEnemyInAttackRangeDecorator.SetBlackboard(_blackboardComponent);
 
         Sequence sequenceCheckEnemyInAttackRange = new Sequence(new List<Node>
         {
@@ -177,12 +177,12 @@ public class GuardBT : BehaviourTree
 
         sequenceCheckEnemyInAttackRange.AddDecorator(CheckEnemyInAttackRangeDecorator);
 
-        BlackboardDecorator sequenceCheckEnemyInFOVRangeDecorator = new BlackboardDecorator(
-            EnableAttacktypeNotifyObserver
-            , EnableAttacktypeObserverAbort
-            , EnableAttackKey
-            , EnableAttackkeyQuery
-            , _blackboardComponent);
+        BlackboardDecorator sequenceCheckEnemyInFOVRangeDecorator = gameObject.AddComponent<BlackboardDecorator>();
+        sequenceCheckEnemyInFOVRangeDecorator.SetTypeNotifyObserver(EnableAttackTypeNotifyObserver);
+        sequenceCheckEnemyInFOVRangeDecorator.SetTypeObserverAbort(EnableAttackTypeObserverAbort);
+        sequenceCheckEnemyInFOVRangeDecorator.SetBlackboardKey(EnableAttackKey);
+        sequenceCheckEnemyInFOVRangeDecorator.SetKeyQuery(EnableAttackKeyQuery);
+        sequenceCheckEnemyInFOVRangeDecorator.SetBlackboard(_blackboardComponent);
 
         Sequence sequenceCheckEnemyInFOVRange = new Sequence(new List<Node>
         {

@@ -22,15 +22,6 @@ public class BlackboardDecorator : Decorator
         OnChangeResult, //cuando el valor cambia.
     }
 
-    public BlackboardDecorator(ETypeNotifyObserver typeNotifyObserver, ETypeObserverAbort typeObserverAbort, string blackboardKey, EKeyQuery keyQuery, Blackboard blackboard)
-    {
-        _typeNotifyObserver = typeNotifyObserver;
-        _typeObserverAbort = typeObserverAbort;
-        _blackboardkey = blackboardKey;
-        _keyQuery = keyQuery;
-        _blackboard = blackboard;
-    }
-
     protected override void Start()
     {
         base.Start();
@@ -78,7 +69,6 @@ public class BlackboardDecorator : Decorator
             case EKeyQuery.IsNotSet:
                 if (!_blackboard.GetBlackboardKeysData()[_blackboard.GetIndexBlackboardKeyData(_blackboardkey)].GetIsSet())
                 {
-                    
                     return true;
                 }
                 break;
