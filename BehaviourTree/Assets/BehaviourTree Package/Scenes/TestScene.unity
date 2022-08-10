@@ -1679,7 +1679,7 @@ PrefabInstance:
       objectReference: {fileID: 190477638}
     - target: {fileID: 2345188186670296672, guid: a07b21e6225aa414c92a08ba51eeba13, type: 3}
       propertyPath: EnableAttackTypeObserverAbort
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2345188186670296672, guid: a07b21e6225aa414c92a08ba51eeba13, type: 3}
       propertyPath: EnableAttacktypeObserverAbort

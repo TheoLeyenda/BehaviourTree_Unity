@@ -109,7 +109,7 @@ public class GuardBT : BehaviourTree
     [SerializeField]
     protected BlackboardDecorator.EKeyQuery EnableAttackKeyQuery;
 
-    protected DebugLogTask debugLogTask;
+    //protected DebugLogTask debugLogTask;
     protected BreakSequenceTask breakSequenceTask;
     protected BreakSequenceTask breakSequenceTask2;
 
@@ -119,7 +119,7 @@ public class GuardBT : BehaviourTree
         breakSequenceTask = new BreakSequenceTask();
         breakSequenceTask2 = new BreakSequenceTask();
 
-        debugLogTask = new DebugLogTask("Debug Task");
+        //debugLogTask = new DebugLogTask("Debug Task");
 
         taskPatrol = new TaskPatrol(transform, waypoints, SpeedPatrol, WaitingInPatrol, DistanceToWaypoint, _blackboardComponent,IsMovementKey, IsIdleKey, IsWaitingKey);
         taskPatrol.SetNameIdleAnimation(NameConditionIdleAnimation);
@@ -156,14 +156,14 @@ public class GuardBT : BehaviourTree
         taskAttack.SetStructAnimationAI(structAnimationAI);
 
         serviceCounter = gameObject.AddComponent<ServiceCounter>();
-        //serviceCounter.SetInterval(intervalServiceCounter);
-        //serviceCounter.ActivateUpdateService();
-        //taskAttack.AddService(serviceCounter);
+        serviceCounter.SetInterval(intervalServiceCounter);
+        serviceCounter.ActivateUpdateService();
+        taskAttack.AddService(serviceCounter);
 
         serviceNotifiy = gameObject.AddComponent<ServiceNotifiy>();
-        //serviceNotifiy.SetInterval(intervalServiceNotify);
-        //serviceNotifiy.ActivateUpdateService();
-        //taskAttack.AddService(serviceNotifiy);
+        serviceNotifiy.SetInterval(intervalServiceNotify);
+        serviceNotifiy.ActivateUpdateService();
+        taskAttack.AddService(serviceNotifiy);
 
         SettingStructureAnimationAI();
 
@@ -205,7 +205,7 @@ public class GuardBT : BehaviourTree
 
         Sequence sequenceDebugMessenge = new Sequence(new List<Node>
         {
-            debugLogTask,
+            //debugLogTask,
             breakSequenceTask2,
         });
 
@@ -311,6 +311,6 @@ public class GuardBT : BehaviourTree
             _blackboardComponent.SetValue(EnableCheckWalkOrIdleAnimationKey, true);
             GetBlackboardComponent().SetValue(EnableAttackKey, false);
         }
-        
+
     }
 }

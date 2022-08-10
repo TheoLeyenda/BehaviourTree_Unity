@@ -20,6 +20,7 @@ namespace BehaviorTree
         public static Action<Decorator> OnAbortSelf;
         public static Action<Decorator> OnAbortLowerPriority;
         public static Action<Decorator> OnAbortBoth;
+        public static Action<Decorator> OnAbortNone;
 
         protected virtual void Start()
         {
@@ -51,6 +52,12 @@ namespace BehaviorTree
                     if (OnAbortSelf != null) 
                     {
                         OnAbortSelf(this);
+                    }
+                    break;
+                case ETypeObserverAbort.None:
+                    if(OnAbortNone != null) 
+                    {
+                        OnAbortNone(this);
                     }
                     break;
             }

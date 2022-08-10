@@ -72,34 +72,66 @@ namespace BehaviorTree
             _allNodes.Add(new TreeNode(node, index));
         }
 
+        private void DisableExecuteServicesNode(Node FromNode) 
+        {
+            FromNode.SetEnableExecutionServices(false);
+            for (int i = 0; i < FromNode.GetChildrens().Count; i++)
+            {
+                FromNode.GetChildrens()[i].SetEnableExecutionServices(false);
+            }
+        }
+
+        public void AbortNoneNode(Node FromNode)
+        {
+            int index = GetIndexNode(FromNode);
+            if (index != -1)
+            {
+                DisableExecuteServicesNode(FromNode);
+            }
+        }
+
         public void AbortSelfNode(Node FromNode) 
         {
             int index = GetIndexNode(FromNode);
-            if (index != -1) 
+            if (index != -1)
+            {
                 FromNode.SetExecuteEnable(false);
+                DisableExecuteServicesNode(FromNode);
+            }
         }
 
         public void AbortLowPriorityNode(Node FromNode) 
         {
             int index = GetIndexNode(FromNode);
             if (index != -1)
-                DisableExecuteNodes(index + 1);
+            {
+                DisableExecuteNodes(index + 1, true);
+            }
         }
 
         public void AbortBothNode(Node FromNode) 
         {
             int index = GetIndexNode(FromNode);
             if (index != -1)
-                DisableExecuteNodes(index);
+            {
+                DisableExecuteNodes(index, false);
+            }
         }
 
-        private void DisableExecuteNodes(int fromNodeIndex) 
+        private void DisableExecuteNodes(int fromNodeIndex, bool lowPriorityAbort) 
         {
             if (fromNodeIndex < _allNodes.Count)
             {
                 for (int i = fromNodeIndex; i < _allNodes.Count; i++)
                 {
+                    bool lastEnableExecutionServices = _allNodes[i]._node.GetEnableExecutionServices();
+
+                    if (lastEnableExecutionServices && lowPriorityAbort) 
+                    {
+                        _allNodes[i]._node.SetEnableLastExecutionServices(true);
+                    }
                     _allNodes[i]._node.SetExecuteEnable(false);
+                    _allNodes[i]._node.SetEnableExecutionServices(false);
                 }
             }
         }

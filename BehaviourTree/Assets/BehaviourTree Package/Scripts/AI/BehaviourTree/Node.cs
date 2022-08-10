@@ -27,9 +27,7 @@ namespace BehaviorTree
             parent = null;
             TypeNode = "Node";
 
-            Decorator.OnAbortBoth += OnAbortBoth;
-            Decorator.OnAbortLowerPriority += OnAbortLowPriority;
-            Decorator.OnAbortSelf += OnAbortSelf;
+            InitActionsEvents();
         }
 
         public Node(List<Node> _childrens)
@@ -38,18 +36,29 @@ namespace BehaviorTree
                 _Attach(child);
             TypeNode = "Node";
 
-            Decorator.OnAbortBoth += OnAbortBoth;
-            Decorator.OnAbortLowerPriority += OnAbortLowPriority;
-            Decorator.OnAbortSelf += OnAbortSelf;
+            InitActionsEvents();
         }
 
         ~Node() 
         {
+            DeinitActionsEvents();
+        }
+
+        private void InitActionsEvents() 
+        {
+            Decorator.OnAbortBoth += OnAbortBoth;
+            Decorator.OnAbortLowerPriority += OnAbortLowPriority;
+            Decorator.OnAbortSelf += OnAbortSelf;
+            Decorator.OnAbortNone += OnAbortNone;
+        }
+
+        private void DeinitActionsEvents() 
+        {
             Decorator.OnAbortBoth -= OnAbortBoth;
             Decorator.OnAbortLowerPriority -= OnAbortLowPriority;
             Decorator.OnAbortSelf -= OnAbortSelf;
+            Decorator.OnAbortNone -= OnAbortNone;
         }
-
         public void SetRoot(Root newRoot) => root = newRoot;
 
         public void ShowChildrens()
@@ -88,6 +97,12 @@ namespace BehaviorTree
             }
             lastAbortType = ETypeObserverAbort.None;
             executeEnable = true;
+
+            if(decorators.Count > 0) 
+            {
+                SetEnableExecutionServicesMeAndChilds(this, true);
+            }
+
             return true;
         }
 
@@ -107,8 +122,6 @@ namespace BehaviorTree
         {
             if (CheckDecorators() || (executeEnable && lastAbortType == ETypeObserverAbort.LowerPriority))
             {
-                Debug.Log(TypeNode);
-                
                 NodeState nodeState = ExecuteNode();
                 if (!CheckDecorators()) 
                 {
@@ -185,6 +198,43 @@ namespace BehaviorTree
             services.Clear();
         }
 
+        public void SetEnableExecutionServicesMeAndChilds(Node node, bool value) 
+        {
+            node.SetEnableExecutionServices(value);
+            for (int i = 0; i < node.childrens.Count; i++)
+            {
+                SetEnableExecutionServicesMeAndChilds(node.childrens[i], value);
+            }
+        }
+
+        public void SetEnableExecutionServices(bool value) 
+        {
+            for(int i = 0; i < services.Count; i++) 
+            {
+                services[i].SetEnableExecute(value);
+            }
+        }
+
+        public bool GetEnableExecutionServices() 
+        {
+            for (int i = 0; i < services.Count; i++)
+            {
+                if (!services[i].GetEnableExecute()) 
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public void SetEnableLastExecutionServices(bool value) 
+        {
+            for(int i = 0; i < services.Count; i++) 
+            {
+                services[i].SetEnableLastExecution(value);
+            }
+        }
+
         public void ShowCountServices()
         {
             Debug.Log("Services Count: " + services.Count);
@@ -203,7 +253,7 @@ namespace BehaviorTree
 
         private void OnAbortBoth(Decorator decorator)
         {
-            if (CheckContainsDecorator(decorator))
+            if (CheckContainsDecorator(decorator) && root != null)
             {
                 lastAbortType = ETypeObserverAbort.Both;
                 root.AbortBothNode(this);
@@ -211,7 +261,7 @@ namespace BehaviorTree
         }
         private void OnAbortLowPriority(Decorator decorator) 
         {
-            if (CheckContainsDecorator(decorator))
+            if (CheckContainsDecorator(decorator) && root != null)
             {
                 lastAbortType = ETypeObserverAbort.LowerPriority;
                 root.AbortLowPriorityNode(this);
@@ -220,10 +270,18 @@ namespace BehaviorTree
 
         private void OnAbortSelf(Decorator decorator) 
         {
-            if (CheckContainsDecorator(decorator))
+            if (CheckContainsDecorator(decorator) && root != null)
             {
                 lastAbortType = ETypeObserverAbort.Self;
                 root.AbortSelfNode(this);
+            }
+        }
+
+        private void OnAbortNone(Decorator decorator) 
+        {
+            if (CheckContainsDecorator(decorator) && root != null) 
+            {
+                root.AbortNoneNode(this);
             }
         }
 
