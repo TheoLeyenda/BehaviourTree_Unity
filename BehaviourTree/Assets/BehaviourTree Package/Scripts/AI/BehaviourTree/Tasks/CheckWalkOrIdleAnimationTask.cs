@@ -26,6 +26,8 @@ public class CheckWalkOrIdleAnimationTask : Task
 
     protected override NodeState ExecuteNode()
     {
+        base.ExecuteNode();
+
         if (!_structAnimationAI || !_blackboard || !(bool)_blackboard.GetValue(_enableCheckWalkOrIdleAnimationKey)) 
             return NodeState.FAILURE;
 

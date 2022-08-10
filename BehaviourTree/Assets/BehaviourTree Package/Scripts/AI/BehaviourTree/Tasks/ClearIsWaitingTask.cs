@@ -15,6 +15,8 @@ public class ClearIsWaitingTask : Task
     }
     protected override NodeState ExecuteNode()
     {
+        base.ExecuteNode();
+
         if (!_blackboard) 
             return NodeState.FAILURE;
 

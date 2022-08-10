@@ -109,11 +109,17 @@ public class GuardBT : BehaviourTree
     [SerializeField]
     protected BlackboardDecorator.EKeyQuery EnableAttackKeyQuery;
 
+    protected DebugLogTask debugLogTask;
     protected BreakSequenceTask breakSequenceTask;
+    protected BreakSequenceTask breakSequenceTask2;
+
     protected override Root SetupTree()
     {
         animator = GetComponent<Animator>();
         breakSequenceTask = new BreakSequenceTask();
+        breakSequenceTask2 = new BreakSequenceTask();
+
+        debugLogTask = new DebugLogTask("Debug Task");
 
         taskPatrol = new TaskPatrol(transform, waypoints, SpeedPatrol, WaitingInPatrol, DistanceToWaypoint, _blackboardComponent,IsMovementKey, IsIdleKey, IsWaitingKey);
         taskPatrol.SetNameIdleAnimation(NameConditionIdleAnimation);
@@ -191,6 +197,18 @@ public class GuardBT : BehaviourTree
             clearIsWaitingTask,
         });
 
+        Sequence sequenceClearTarget = new Sequence(new List<Node>
+        {
+            clearTargetTask,
+            breakSequenceTask,
+        });
+
+        Sequence sequenceDebugMessenge = new Sequence(new List<Node>
+        {
+            debugLogTask,
+            breakSequenceTask2,
+        });
+
         sequenceCheckEnemyInFOVRange.AddDecorator(sequenceCheckEnemyInFOVRangeDecorator);
 
         Sequence sequencePatrol = new Sequence(new List<Node>
@@ -201,10 +219,12 @@ public class GuardBT : BehaviourTree
 
         Selector compositeRoot = new Selector(new List<Node>
         {
-            clearTargetTask,
+            sequenceClearTarget,
+            sequenceDebugMessenge,
             sequenceCheckEnemyInAttackRange,
             sequenceCheckEnemyInFOVRange,
             sequencePatrol,
+
         });
 
         Root root = new Root(compositeRoot);

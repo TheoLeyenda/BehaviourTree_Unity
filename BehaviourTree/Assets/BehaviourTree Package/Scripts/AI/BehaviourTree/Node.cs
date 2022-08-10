@@ -103,16 +103,15 @@ namespace BehaviorTree
             return CheckReturnNodeState();
         }
 
-        public virtual NodeState Evaluate()
+        public NodeState Evaluate()
         {
-            if(decorators.Count > 0)
-                Debug.Log("Name Node: "+ TypeNode + "Check Decorator:" + CheckDecorators() + ", executeEnable: " + executeEnable + ", lastAbortType: " + lastAbortType.ToString());
             if (CheckDecorators() || (executeEnable && lastAbortType == ETypeObserverAbort.LowerPriority))
             {
+                Debug.Log(TypeNode);
+                
                 NodeState nodeState = ExecuteNode();
                 if (!CheckDecorators()) 
                 {
-                    Debug.Log(TypeNode);
                     executeEnable = false;
                 }
                 return nodeState;
