@@ -13,6 +13,7 @@ public class ServiceNotifiy : Service
     }
     protected override void UpdateService()
     {
+        base.UpdateService();
         Debug.Log("UpdateService: Notify!");
     }
 }

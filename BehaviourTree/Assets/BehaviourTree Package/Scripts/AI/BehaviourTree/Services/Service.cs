@@ -12,7 +12,7 @@ namespace BehaviorTree
         //En el FixedUpdate se ejecuta el "TickNode"
 
         protected float _interval = 0.5f;
-        private bool _useUpdate = true;
+        private bool _useUpdate = false;
         private bool _enableExecute = true;
         private bool _enableLastExecution = false;
         private bool _corrutineStarted = false;

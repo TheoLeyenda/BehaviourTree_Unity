@@ -95,7 +95,7 @@ namespace BehaviorTree
             int index = GetIndexNode(FromNode);
             if (index != -1)
             {
-                FromNode.SetExecuteEnable(false);
+                SetEnableExecutionNodeMeAndChilds(FromNode , false);
                 DisableExecuteServicesNode(FromNode);
             }
         }
@@ -105,6 +105,12 @@ namespace BehaviorTree
             int index = GetIndexNode(FromNode);
             if (index != -1)
             {
+                bool lastEnableExecutionServices = FromNode.GetEnableExecutionServices();
+                if (lastEnableExecutionServices)
+                {
+                    FromNode.SetEnableExecutionServices(false);
+                    FromNode.SetEnableLastExecutionServices(true);
+                }
                 DisableExecuteNodes(index + 1, true);
             }
         }

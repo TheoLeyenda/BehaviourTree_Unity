@@ -245,6 +245,15 @@ namespace BehaviorTree
             state = nodeState;
         }
 
+        public void SetEnableExecutionNodeMeAndChilds(Node FromNode, bool value)
+        {
+            FromNode.SetExecuteEnable(value);
+            for (int i = 0; i < FromNode.GetChildrens().Count; i++)
+            {
+                SetEnableExecutionNodeMeAndChilds(FromNode.GetChildrens()[i], value);
+            }
+        }
+
         public void SetExecuteEnable(bool enable) => executeEnable = enable;
 
         public bool GetExecuteEnable() { return executeEnable; }

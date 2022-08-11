@@ -186,6 +186,7 @@ MonoBehaviour:
   IsMovementKey: IsWalking
   IsIdleKey: IsIdle
   EnableCheckWalkOrIdleAnimationKey: EnableCheckWalkOrIdleAnimation
+  IsWaitingKey: IsWaiting
   SpeedPatrol: 2
   WaitingInPatrol: 2.5
   DistanceToWaypoint: 0.02
@@ -205,10 +206,21 @@ MonoBehaviour:
   damageAttack: 10
   intervalServiceCounter: 1
   intervalServiceNotify: 5
-  EnableAttacktypeNotifyObserver: 0
-  EnableAttacktypeObserverAbort: 1
+  intervalServiceRandomDisplay: 2
+  RandomDisplayInBecomeRelevant:
+  - Pepe gano la segunda guerra
+  - El papa debuto con pele
+  - Jorgito no es el nombre de un alfajor
+  - Aguante Unity
+  RandomDisplayInUpdate:
+  - Pepe gano la segunda guerra
+  - El papa debuto con pele
+  - Jorgito no es el nombre de un alfajor
+  - Aguante Unity
+  EnableAttackTypeNotifyObserver: 0
+  EnableAttackTypeObserverAbort: 2
   EnableAttackKey: EnableAttack
-  EnableAttackkeyQuery: 0
+  EnableAttackKeyQuery: 0
 --- !u!114 &971047695764770693
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -83,6 +83,14 @@ public class GuardBT : BehaviourTree
     protected float intervalServiceNotify;
     protected ServiceNotifiy serviceNotifiy;
 
+    [Header("Service Random Display")]
+    [SerializeField]
+    protected float intervalServiceRandomDisplay;
+    [SerializeField]
+    protected List<string> RandomDisplayInBecomeRelevant;
+    [SerializeField]
+    protected List<string> RandomDisplayInUpdate;
+
     protected CheckWalkOrIdleAnimationTask checkWalkOrIdleAnimationTask;
     protected ClearTargetTask clearTargetTask;
     protected ClearIsWaitingTask clearIsWaitingTask;
@@ -115,6 +123,7 @@ public class GuardBT : BehaviourTree
 
     protected override Root SetupTree()
     {
+
         animator = GetComponent<Animator>();
         breakSequenceTask = new BreakSequenceTask();
         breakSequenceTask2 = new BreakSequenceTask();
@@ -181,7 +190,15 @@ public class GuardBT : BehaviourTree
             clearIsWaitingTask,
         });
 
+        ServiceRandomDisplay serviceRandomDisplay = gameObject.AddComponent<ServiceRandomDisplay>();
+        serviceRandomDisplay.RandomDisplayInBecomeRelevant = RandomDisplayInBecomeRelevant;
+        serviceRandomDisplay.RandomDisplayInUpdate = RandomDisplayInUpdate;
+        serviceRandomDisplay.SetInterval(intervalServiceRandomDisplay);
+
         sequenceCheckEnemyInAttackRange.AddDecorator(CheckEnemyInAttackRangeDecorator);
+        sequenceCheckEnemyInAttackRange.AddService(serviceRandomDisplay);
+
+        serviceRandomDisplay.ActivateUpdateService();
 
         BlackboardDecorator sequenceCheckEnemyInFOVRangeDecorator = gameObject.AddComponent<BlackboardDecorator>();
         sequenceCheckEnemyInFOVRangeDecorator.SetTypeNotifyObserver(EnableAttackTypeNotifyObserver);
