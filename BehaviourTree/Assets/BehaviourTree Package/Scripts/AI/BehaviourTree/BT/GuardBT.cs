@@ -117,7 +117,6 @@ public class GuardBT : BehaviourTree
     [SerializeField]
     protected BlackboardDecorator.EKeyQuery EnableAttackKeyQuery;
 
-    //protected DebugLogTask debugLogTask;
     protected BreakSequenceTask breakSequenceTask;
     protected BreakSequenceTask breakSequenceTask2;
 
@@ -127,8 +126,6 @@ public class GuardBT : BehaviourTree
         animator = GetComponent<Animator>();
         breakSequenceTask = new BreakSequenceTask();
         breakSequenceTask2 = new BreakSequenceTask();
-
-        //debugLogTask = new DebugLogTask("Debug Task");
 
         taskPatrol = new TaskPatrol(transform, waypoints, SpeedPatrol, WaitingInPatrol, DistanceToWaypoint, _blackboardComponent,IsMovementKey, IsIdleKey, IsWaitingKey);
         taskPatrol.SetNameIdleAnimation(NameConditionIdleAnimation);
@@ -174,6 +171,13 @@ public class GuardBT : BehaviourTree
         serviceNotifiy.ActivateUpdateService();
         taskAttack.AddService(serviceNotifiy);
 
+        ServiceRandomDisplay serviceRandomDisplay = gameObject.AddComponent<ServiceRandomDisplay>();
+        serviceRandomDisplay.RandomDisplayInBecomeRelevant = RandomDisplayInBecomeRelevant;
+        serviceRandomDisplay.RandomDisplayInUpdate = RandomDisplayInUpdate;
+        serviceRandomDisplay.SetInterval(intervalServiceRandomDisplay);
+        serviceRandomDisplay.ActivateUpdateService();
+        taskAttack.AddService(serviceRandomDisplay);
+
         SettingStructureAnimationAI();
 
         BlackboardDecorator CheckEnemyInAttackRangeDecorator = gameObject.AddComponent<BlackboardDecorator>();
@@ -190,15 +194,7 @@ public class GuardBT : BehaviourTree
             clearIsWaitingTask,
         });
 
-        ServiceRandomDisplay serviceRandomDisplay = gameObject.AddComponent<ServiceRandomDisplay>();
-        serviceRandomDisplay.RandomDisplayInBecomeRelevant = RandomDisplayInBecomeRelevant;
-        serviceRandomDisplay.RandomDisplayInUpdate = RandomDisplayInUpdate;
-        serviceRandomDisplay.SetInterval(intervalServiceRandomDisplay);
-
         sequenceCheckEnemyInAttackRange.AddDecorator(CheckEnemyInAttackRangeDecorator);
-        sequenceCheckEnemyInAttackRange.AddService(serviceRandomDisplay);
-
-        serviceRandomDisplay.ActivateUpdateService();
 
         BlackboardDecorator sequenceCheckEnemyInFOVRangeDecorator = gameObject.AddComponent<BlackboardDecorator>();
         sequenceCheckEnemyInFOVRangeDecorator.SetTypeNotifyObserver(EnableAttackTypeNotifyObserver);
